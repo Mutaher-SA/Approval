@@ -43,31 +43,35 @@ contract property {
     
 }
 
-pragma solidity ^0.8.0;
-
-contract AssetTransfer {
+contract AssetMarket {
     struct Asset {
         uint id;
-        uint value;
+        uint price;
         address payable owner;
-        // other asset details
+        bool isAvailable;
     }
 
     mapping(uint => Asset) public assets;
 
-    event Transfer(uint indexed id, address indexed from, address indexed to, uint value);
+    event AssetPurchased(uint indexed assetId, address indexed buyer, uint price);
 
-    function transferAsset(uint _assetId, address payable _to, uint _priceCondition) public payable {
-        require(assets[_assetId].owner == msg.sender, "You do not own this asset");
+    function addAsset(uint _assetId, uint _price) external {
+        require(!assets[_assetId].isAvailable, "Asset with this ID already exists");
 
+        assets[_assetId] = Asset(_assetId, _price, payable(msg.sender), true);
+    }
+
+    function buyAsset(uint _assetId) external payable {
         Asset storage asset = assets[_assetId];
-        require(asset.value >= _priceCondition, "Asset value does not meet the price condition");
 
-        require(msg.value >= asset.value, "Insufficient payment");
+        require(asset.isAvailable, "Asset is not available");
+        require(msg.value >= asset.price, "Insufficient funds");
 
-        asset.owner.transfer(asset.value); // Send payment to the current owner
-        asset.owner = _to;
+        asset.owner.transfer(asset.price); // Transfer payment to the asset owner
+        asset.owner = payable(msg.sender); // Update the asset owner
+        asset.isAvailable = false; // Mark the asset as no longer available
 
-        emit Transfer(_assetId, msg.sender, _to, asset.value);
+        emit AssetPurchased(_assetId, msg.sender, asset.price);
     }
 }
+

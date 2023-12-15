@@ -48,6 +48,12 @@
 						"internalType": "address",
 						"name": "OwnedBy",
 						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "Car_State",
+						"type": "bool"
 					}
 				],
 				"name": "EvntNewCarAdd",
@@ -61,12 +67,6 @@
 						"internalType": "uint256",
 						"name": "CarID",
 						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "TheBuyer",
-						"type": "address"
 					},
 					{
 						"indexed": false,
@@ -104,6 +104,11 @@
 						"internalType": "address",
 						"name": "",
 						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
 					}
 				],
 				"name": "AddCar",
@@ -146,6 +151,11 @@
 								"internalType": "address payable",
 								"name": "OwnedBy",
 								"type": "address"
+							},
+							{
+								"internalType": "bool",
+								"name": "Car_State",
+								"type": "bool"
 							}
 						],
 						"internalType": "struct CarAgency.Struct_Car[]",
@@ -214,6 +224,11 @@
 						"internalType": "address payable",
 						"name": "OwnedBy",
 						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "Car_State",
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -225,11 +240,6 @@
 						"internalType": "uint256",
 						"name": "_CarID",
 						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "_TheBuyer",
-						"type": "address"
 					},
 					{
 						"internalType": "uint256",
@@ -279,11 +289,11 @@
 			]
 		},
 		"contracts/Cars.sol": {
-			"keccak256": "0x8148df3bd451de11778ebc5b5e2e77873ff35479138e2a969e3dcefa6ef0151d",
+			"keccak256": "0xfd2ec587af2b3f25eccc968d6e6d21f3e992012722cdd676265f4a681f4aefbb",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://b2a61519101212d9d417b7449fa05de577e80426a14bf0e736a398154baab2fd",
-				"dweb:/ipfs/QmSP7vrvTCM2B1ZF7gi2eB5W3Cwjsfbx5M6cEUM2BzeWX2"
+				"bzz-raw://c7c852f90690b4bcd5096b5001eb21dad751c41f6ab81a2023cb81e0341f4911",
+				"dweb:/ipfs/QmbqzqcKWgihzfjzycqZMaxhGJKjcUjFfSRvbS3b19uStE"
 			]
 		}
 	},
