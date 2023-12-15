@@ -1,0 +1,291 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "Car_id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "Car_model",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "Car_color",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "Car_Price",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "Car_Name",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "OwnedBy",
+						"type": "address"
+					}
+				],
+				"name": "EvntNewCarAdd",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "CarID",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "TheBuyer",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "CarPrice",
+						"type": "uint256"
+					}
+				],
+				"name": "EvntSellingCar",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_Car_model",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_Car_color",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_Car_Price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_Car_Name",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "AddCar",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "AllCars",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "Car_id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "Car_model",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "Car_color",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "Car_Price",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "Car_Name",
+								"type": "string"
+							},
+							{
+								"internalType": "address payable",
+								"name": "OwnedBy",
+								"type": "address"
+							}
+						],
+						"internalType": "struct CarAgency.Struct_Car[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "ListCars",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "MapCars",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "Car_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Car_model",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "Car_color",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Car_Price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "Car_Name",
+						"type": "string"
+					},
+					{
+						"internalType": "address payable",
+						"name": "OwnedBy",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_CarID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_TheBuyer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_CarPrice",
+						"type": "uint256"
+					}
+				],
+				"name": "SellCar",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Cars.sol": "CarAgency"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/utils/Counters.sol": {
+			"keccak256": "0xf0018c2440fbe238dd3a8732fa8e17a0f9dce84d31451dc8a32f6d62b349c9f1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://59e1c62884d55b70f3ae5432b44bb3166ad71ae3acd19c57ab6ddc3c87c325ee",
+				"dweb:/ipfs/QmezuXg5GK5oeA4F91EZhozBFekhq5TD966bHPH18cCqhu"
+			]
+		},
+		"contracts/Cars.sol": {
+			"keccak256": "0x8148df3bd451de11778ebc5b5e2e77873ff35479138e2a969e3dcefa6ef0151d",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://b2a61519101212d9d417b7449fa05de577e80426a14bf0e736a398154baab2fd",
+				"dweb:/ipfs/QmSP7vrvTCM2B1ZF7gi2eB5W3Cwjsfbx5M6cEUM2BzeWX2"
+			]
+		}
+	},
+	"version": 1
+}
