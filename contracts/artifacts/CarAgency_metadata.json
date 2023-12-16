@@ -45,7 +45,7 @@
 					},
 					{
 						"indexed": false,
-						"internalType": "address",
+						"internalType": "address payable",
 						"name": "OwnedBy",
 						"type": "address"
 					},
@@ -67,6 +67,12 @@
 						"internalType": "uint256",
 						"name": "CarID",
 						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "Newowner",
+						"type": "address"
 					},
 					{
 						"indexed": false,
@@ -242,6 +248,11 @@
 						"type": "uint256"
 					},
 					{
+						"internalType": "address payable",
+						"name": "_NewOwner",
+						"type": "address"
+					},
+					{
 						"internalType": "uint256",
 						"name": "_CarPrice",
 						"type": "uint256"
@@ -289,11 +300,11 @@
 			]
 		},
 		"contracts/Cars.sol": {
-			"keccak256": "0xfd2ec587af2b3f25eccc968d6e6d21f3e992012722cdd676265f4a681f4aefbb",
+			"keccak256": "0x582629a715ddd3f2447007a5fb7f56793850bfd18d8d6a51a4395adbf2ec65d1",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://c7c852f90690b4bcd5096b5001eb21dad751c41f6ab81a2023cb81e0341f4911",
-				"dweb:/ipfs/QmbqzqcKWgihzfjzycqZMaxhGJKjcUjFfSRvbS3b19uStE"
+				"bzz-raw://9296534bd5383dd9ff27913d82a48e6ecac363aeb87470e7055660f008809b8d",
+				"dweb:/ipfs/QmdahJh2JL5uEY9uYBbbJcNgK976k35CEcdFNFtbCoveWC"
 			]
 		}
 	},

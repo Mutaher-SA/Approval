@@ -27,17 +27,17 @@ contract CarAgency {
         string Car_color,
         uint256 Car_Price,
         string Car_Name,
-        address OwnedBy,
+        address payable OwnedBy,
         bool Car_State
     );
 
-    event EvntSellingCar(uint256 CarID, uint256 CarPrice);
+    event EvntSellingCar(uint256 CarID,address Newowner ,uint256 CarPrice);
 //-------------------End Events Declerations------------------------------------------------------------------
 
     address AgencyOwner;
     constructor()
     {
-        AgencyOwner= msg.sender;
+        AgencyOwner= payable (msg.sender);
     }
 
     mapping(uint256 => Struct_Car) public MapCars;
@@ -53,10 +53,10 @@ contract CarAgency {
     function AddCar(uint256 _Car_model,string memory _Car_color,uint256 _Car_Price,string memory _Car_Name, address,bool) public OnlyAgencyOwner {
         _CurrentCarID.increment();
         //cars[_CurrentCarID.current()] = Car(_CurrentCarID.current(),_Car_model,_Car_color,_Car_Price,_Car_Name);
-        Struct_Car memory newCar = Struct_Car(_CurrentCarID.current(),_Car_model,_Car_color,_Car_Price,_Car_Name,payable (AgencyOwner),true);
+        Struct_Car memory newCar = Struct_Car(_CurrentCarID.current(),_Car_model,_Car_color,_Car_Price,_Car_Name,payable(address(this)),true);
         MapCars[_CurrentCarID.current()] = newCar;
         ListCars.push(_CurrentCarID.current());
-        emit EvntNewCarAdd(_CurrentCarID.current(), _Car_model, _Car_color, _Car_Price, _Car_Name, AgencyOwner,true); 
+        emit EvntNewCarAdd(_CurrentCarID.current(), _Car_model, _Car_color, _Car_Price, _Car_Name,payable(address(this)),true); 
     }
 
 //------------------------View All Cars Function------------------------------------------------
@@ -71,19 +71,24 @@ contract CarAgency {
     }
 
 //------------------------Sell Car And Pay Function------------------------------------------------
-    function SellCar (uint256 _CarID, address _TheBuyer, uint256 _CarPrice) public  payable 
+    function SellCar (uint256 _CarID, address payable _NewOwner, uint256 _CarPrice) public payable 
     {
         //require(MapCars[_CarID].OwnedBy == msg.sender, "Car must be transferred By The Agency!!!");
         
         Struct_Car memory CarToSold = MapCars[_CarID];
         require(CarToSold.Car_State, "Car is already Sold");
-        require(CarToSold.Car_Price >= _CarPrice, "Wrong Car value ");
+        require(CarToSold.Car_Price == _CarPrice, "Wrong Car price");
 
         //CarToSold.OwnedBy = _TheBuyer;
-        CarToSold.OwnedBy.transfer(CarToSold.Car_Price);
-        CarToSold.OwnedBy=payable (_TheBuyer);
-        CarToSold.Car_State=false;
-        emit EvntSellingCar(_CarID, _CarPrice);
+        
+        //---------------------NOT WORKING CODE--------------------------
+        CarToSold.OwnedBy.transfer(msg.value);  
+        CarToSold.OwnedBy=_NewOwner;            
+        CarToSold.Car_State=false;              
+        //---------------------END OF NOT WORKING CODE-------------------
+
+
+        emit EvntSellingCar(_CarID , _NewOwner , _CarPrice);
     }
 
 }
