@@ -105,16 +105,6 @@
 						"internalType": "string",
 						"name": "_Car_Name",
 						"type": "string"
-					},
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					},
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
 					}
 				],
 				"name": "AddCar",
@@ -246,16 +236,6 @@
 						"internalType": "uint256",
 						"name": "_CarID",
 						"type": "uint256"
-					},
-					{
-						"internalType": "address payable",
-						"name": "_NewOwner",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_CarPrice",
-						"type": "uint256"
 					}
 				],
 				"name": "SellCar",
@@ -300,11 +280,11 @@
 			]
 		},
 		"contracts/Cars.sol": {
-			"keccak256": "0x582629a715ddd3f2447007a5fb7f56793850bfd18d8d6a51a4395adbf2ec65d1",
+			"keccak256": "0x59b1b46d155a2d86cdff08ed48cadc9f5558942f042428d168d74bcd17c78250",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://9296534bd5383dd9ff27913d82a48e6ecac363aeb87470e7055660f008809b8d",
-				"dweb:/ipfs/QmdahJh2JL5uEY9uYBbbJcNgK976k35CEcdFNFtbCoveWC"
+				"bzz-raw://5656ad84514a5df6eb85165e268a444e6b1d273e2ad686d41dce5438564c2356",
+				"dweb:/ipfs/QmfFQ74F4C48X9kksG8APpkFFRnTJwD6uN84ndtAztRPZ3"
 			]
 		}
 	},
