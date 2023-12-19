@@ -41,7 +41,7 @@ contract CarAgency {
     }
 
     mapping(uint256 => Struct_Car) public MapCars;
-    uint256[] public ListCars;
+    //uint256[] public ListCars;
 
     modifier OnlyAgencyOwner() // for allow only agency owner to add cars
     {
@@ -55,7 +55,7 @@ contract CarAgency {
         //cars[_CurrentCarID.current()] = Car(_CurrentCarID.current(),_Car_model,_Car_color,_Car_Price,_Car_Name);
         Struct_Car memory newCar = Struct_Car(_CurrentCarID.current(),_Car_model,_Car_color,_Car_Price,_Car_Name,payable(AgencyOwner),true);
         MapCars[_CurrentCarID.current()] = newCar;
-        ListCars.push(_CurrentCarID.current());
+        //ListCars.push(_CurrentCarID.current());
         emit EvntNewCarAdd(_CurrentCarID.current(), _Car_model, _Car_color, _Car_Price, _Car_Name,payable(AgencyOwner),true); 
     }
 

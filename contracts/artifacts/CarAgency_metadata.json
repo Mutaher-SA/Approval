@@ -170,25 +170,6 @@
 						"type": "uint256"
 					}
 				],
-				"name": "ListCars",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
 				"name": "MapCars",
 				"outputs": [
 					{
@@ -280,11 +261,11 @@
 			]
 		},
 		"contracts/Cars.sol": {
-			"keccak256": "0x59b1b46d155a2d86cdff08ed48cadc9f5558942f042428d168d74bcd17c78250",
+			"keccak256": "0x29ac9fe4b232424850fadb4572fb51c647fc2dbda3deae4897106b30090e089f",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://5656ad84514a5df6eb85165e268a444e6b1d273e2ad686d41dce5438564c2356",
-				"dweb:/ipfs/QmfFQ74F4C48X9kksG8APpkFFRnTJwD6uN84ndtAztRPZ3"
+				"bzz-raw://3da19f667f20e87a6e61a62dd355ccc50585eafabaf8e26f3396bcbdc68408a4",
+				"dweb:/ipfs/QmXXQcPcn9Aao14K5Sy872Gic7Rosw8RUZqewtenp6TRtN"
 			]
 		}
 	},
