@@ -26,51 +26,51 @@ contract Bank_System
         band_admin=msg.sender;
     }
 
+    receive() external payable 
+    { 
+        require(msg.value>1 ether, "You are trying to withdraw NOTHING!!! ");        
+        AddMoney();
+    }
     //receive() public payable 
     //{
     //    require(msg.value > 1 ether, "The amount should be larger than 1 ");
         //AddCustomer(_CurrentCarID.current(), cust_name ,cust_Balanace,cust_Address);
     //}
 
-//function to add customer data
-modifier OnlyBankAdmin()
-{
-    require(msg.sender==band_admin, "Only Bank admin can add new customer");
-    _;
-}
 
- function NewAccount(string memory _cust_name) public 
- {
-       require(Map_cust[msg.sender].cust_id == 0, "Account already exists");
+    function NewAccount(string memory _cust_name) public 
+    {
+        require(Map_cust[msg.sender].cust_id == 0, "Account already exists");
 
-       _CurrentCustID.increment(); 
-       Map_cust[msg.sender] = Stc_Account(_CurrentCustID.current(), _cust_name, 0, true);
-       
-       emit EvtNewwCust(_CurrentCustID.current(), msg.sender, _cust_name,0); 
-}
+        _CurrentCustID.increment(); 
+        Map_cust[msg.sender] = Stc_Account(_CurrentCustID.current(), _cust_name, 0, true);
+        
+        emit EvtNewwCust(_CurrentCustID.current(), msg.sender, _cust_name,0); 
+    }
 
 //---------------------------------------function to Add New customer
-function AddMoney() public payable 
-{
-     require(Map_cust[msg.sender].cust_id != 0, "No Account data found!!! ");
-     Map_cust[msg.sender].cust_balance+=msg.value;  
-     emit EvtAddMoney(Map_cust[msg.sender].cust_id, msg.sender, msg.value);
-}
+    function AddMoney() public payable 
+    {
+        require(Map_cust[msg.sender].cust_id != 0, "No Account data found!!! ");
+        Map_cust[msg.sender].cust_balance+=msg.value;  
+        emit EvtAddMoney(Map_cust[msg.sender].cust_id, msg.sender, msg.value);
+    }
 //---------------------------------------function to get balance
-function GetCust_Balance() public view returns (uint256)
-{
-    return Map_cust[msg.sender].cust_balance;
-}
+    function GetCust_Balance() public view returns (uint256)
+    {
+        return Map_cust[msg.sender].cust_balance;
+    }
 //---------------------------------------function to withdraw
-function Cust_Withdraw (uint256 _Amount) public payable  
-{
-    require(Map_cust[msg.sender].cust_id != 0, "No Account data found!!! ");
-    require(Map_cust[msg.sender].cust_balance > _Amount, "You are trying to withdraw money you don't have!!! ");
-    require(_Amount>0, "You are trying to withdraw NOTHING!!! ");
+    function Cust_Withdraw (uint256 _Amount) public payable  
+    {
+        require(Map_cust[msg.sender].cust_id != 0, "No Account data found!!! ");
+        require(Map_cust[msg.sender].cust_balance >= _Amount, "You are trying to withdraw money you don't have!!! ");
+        require(_Amount>0, "You are trying to withdraw NOTHING!!! ");
 
-    Map_cust[msg.sender].cust_balance-=msg.value;
+        payable (msg.sender).transfer(_Amount);
+        Map_cust[msg.sender].cust_balance-=msg.value;
+        
+        emit EvtWithdraw(Map_cust[msg.sender].cust_id, msg.sender,_Amount);
 
-    emit EvtWithdraw(Map_cust[msg.sender].cust_id, msg.sender,_Amount);
-
-}
+    }
 }

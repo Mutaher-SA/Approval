@@ -183,6 +183,10 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -221,11 +225,11 @@
 			]
 		},
 		"contracts/Banking_System.sol": {
-			"keccak256": "0x1cb0b04246fa35fa216d52dae808b96fd0998e1dddf3bb0448873555332a32b9",
+			"keccak256": "0x6807c20541e8b4cee527414a30bf39ce9a93acc231de47b403f4f91450e426d5",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://690e37ef4ce8161620a377fb0428ebcfa4ac5878b5176f5f74d5722e57d61502",
-				"dweb:/ipfs/QmZ59B7rFHmSUX8AiEfN9RqdULj3ovAmLJDuiQASH2akrK"
+				"bzz-raw://b09123707a0d75c082f43af056e142d6a1d683d5eec14ca311b48a25102cff6c",
+				"dweb:/ipfs/QmPn17RZJURsXu5ujso1d2TKZNNArssYqKrL3PLQhorkJN"
 			]
 		}
 	},
