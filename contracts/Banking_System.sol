@@ -68,7 +68,7 @@ contract Bank_System
         require(_Amount>0, "You are trying to withdraw NOTHING!!! ");
 
         payable (msg.sender).transfer(_Amount);
-        Map_cust[msg.sender].cust_balance-=msg.value;
+        Map_cust[msg.sender].cust_balance-=_Amount;
         
         emit EvtWithdraw(Map_cust[msg.sender].cust_id, msg.sender,_Amount);
 
