@@ -33,5 +33,8 @@ interface ICommonFunctions {
         uint256 id
     ) external view returns (DataStr.BusItem memory);
 
-  
+    function getBusStatus(uint256 busId) external view returns (DataStr.BusStatus);
+
+    function updateNft(uint256 busId, uint256 nftTokenId) external;
+
 }

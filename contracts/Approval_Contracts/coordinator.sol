@@ -3,102 +3,68 @@ pragma solidity ^0.8.2;
 
 import "./ICommonFunctions.sol";
 import "./AddressManager.sol";
+import "./DataStr.sol"; // For BusStatus and BusItem struct
 
 contract Coordinator {
-    ICommonFunctions public companyContract;
+    ICommonFunctions public sharedStorage;
     AddressManager public addressManager;
+    address public governmentAddress;
 
-    // Assuming a mapping to store notes for buses, if applicable.
-    mapping(uint256 => string) public busNotes;
-    //-----------Events------------------------------
+    event BusForwardedToGovernment(uint256 busId);
     event BusRejected(uint256 busId, string note, address updatedBy);
     event BusNoted(uint256 busId, string note, address updatedBy);
-    
-    struct CoordinatorBusItem {
-        ICommonFunctions.BusStatus status;
-        string note;
-        address updatedBy;
-    }
 
-    mapping(uint256 => CoordinatorBusItem) public coordinatorBusItems;
-
-
-    constructor(address _companyContractAddress, address _addressManagerAddress) {
-        require(_companyContractAddress != address(0), "Company contract address cannot be zero.");
+    constructor(address _sharedStorageAddress, address _addressManagerAddress, address _governmentAddress) {
+        require(_sharedStorageAddress != address(0), "SharedStorage contract address cannot be zero.");
         require(_addressManagerAddress != address(0), "AddressManager contract address cannot be zero.");
-        companyContract = ICommonFunctions(_companyContractAddress);
+        require(_governmentAddress != address(0), "Government address cannot be zero.");
+        sharedStorage = ICommonFunctions(_sharedStorageAddress);
         addressManager = AddressManager(_addressManagerAddress);
+        governmentAddress = _governmentAddress;
     }
 
-    modifier onlyAuthorizedCoordinator() {
+    modifier onlyCoordinator() {
         require(addressManager.isCoordinatorAddressAllowed(msg.sender), "Caller is not an authorized coordinator.");
         _;
     }
 
-     // Retrieve the data for a single bus by its ID
-    function getBusData(uint256 busId) public view returns (ICommonFunctions.BusItem memory) {
-        return companyContract.getBusData(busId);
+    // Retrieve the data for a single bus by its ID
+    function getBusData(uint256 busId) public view returns (DataStr.BusItem memory) {
+        return sharedStorage.getBusData(busId);
     }
 
-    // Retrieve all buses that match a specific status
-    function getBusesByStatus(ICommonFunctions.BusStatus status) public view returns (ICommonFunctions.BusItem[] memory) {
-        return companyContract.getBusesByStatus(status);
+    function forwardToGoverment(uint256 busId) external onlyCoordinator {
+        require(sharedStorage.getBusStatus(busId) != DataStr.BusStatus.Forward_To_Coordinator, "Bus is not in a state that can be forwarded to Government.");
+
+        sharedStorage.updateBusStatus(busId, DataStr.BusStatus.Forward_To_Goverment, "Transferred to Goverment", msg.sender);
+        sharedStorage.updateOwnership(busId, governmentAddress);
     }
 
-    function forwardBusToGovernment(uint256 busId) public onlyAuthorizedCoordinator {
-        // Retrieve the bus data to check its current status
-        ICommonFunctions.BusItem memory bus = companyContract.getBusData(busId);
-        
-        // Ensure that the bus is in a state that allows it to be forwarded to the government
-        require(bus.status == ICommonFunctions.BusStatus.ForwardToCoordinator, "Bus cannot be forwarded to the government in its current state.");
-
-        // Update the bus status to indicate it has been forwarded to the government
-        companyContract.updateBusStatus(busId, ICommonFunctions.BusStatus.ForwardToHTMC);
-    }
-
-    // Function to set a new address for the company contract
-    // This might be necessary if the company contract is upgraded or changed
-    function setCompanyContractAddress(address _newCompanyContractAddress) external onlyAuthorizedCoordinator {
-        require(_newCompanyContractAddress != address(0), "New company contract address cannot be zero.");
-        companyContract = ICommonFunctions(_newCompanyContractAddress);
-    }
-
-    function rejectBus(uint256 busId, string memory note) public onlyAuthorizedCoordinator {
-        ICommonFunctions.BusItem memory bus = getBusData(busId);
-        require(bus.status == ICommonFunctions.BusStatus.Waiting || bus.status == ICommonFunctions.BusStatus.Noted, "Bus cannot be rejected in its current state.");
-        // Update bus status and note directly in the Company contract
-        companyContract.updateBusStatusWithNote(busId, ICommonFunctions.BusStatus.Rejected, note, msg.sender);
+    function rejectBus(uint256 busId, string memory note) public onlyCoordinator {
+        DataStr.BusItem memory bus = getBusData(busId);
+        require(bus.status == DataStr.BusStatus.Forward_To_Goverment || 
+        bus.status == DataStr.BusStatus.Rejected ||
+        bus.status == DataStr.BusStatus.Noted
+        , "Bus cannot be rejected in its current state.");
+        sharedStorage.updateBusStatus(busId, DataStr.BusStatus.Rejected, note, msg.sender);
         emit BusRejected(busId, note, msg.sender);
     }
 
-
-    function noteBus(uint256 busId, string memory note) public onlyAuthorizedCoordinator {
-    // Similar update for noting a bus
-        coordinatorBusItems[busId] = CoordinatorBusItem({
-        status: ICommonFunctions.BusStatus.Noted,
-        note: note,
-        updatedBy: msg.sender
-    });
-    emit BusNoted(busId, note, msg.sender);
+    function noteBus(uint256 busId, string memory note) public onlyCoordinator {
+        DataStr.BusItem memory bus = getBusData(busId);
+        require(bus.status == DataStr.BusStatus.Forward_To_Goverment || 
+        bus.status == DataStr.BusStatus.Rejected ||
+        bus.status == DataStr.BusStatus.Noted
+        , "Bus cannot be Noted in its current state.");
+        sharedStorage.updateBusStatus(busId, DataStr.BusStatus.Noted, note, msg.sender);
+        emit BusNoted(busId, note, msg.sender);
 }
 
-     // Function to reject a bus with a reason
-    //function rejectBus(uint256 busId, string memory note) public onlyAuthorizedCoordinator {
-    //    ICommonFunctions.BusItem memory bus = companyContract.getBusData(busId);
-    //    require(bus.status == ICommonFunctions.BusStatus.Waiting || bus.status == ICommonFunctions.BusStatus.Noted, "Bus cannot be rejected in its current state.");
 
-        // This may require changes to your ICommonFunctions interface and companyContract implementation
-      //  companyContract.updateBusStatusWithNote(busId, ICommonFunctions.BusStatus.Rejected, note, msg.sender);
-    //}
-
-    // Function to mark a bus as noted, potentially reusing the rejectNote field for simplicity
-    //function noteBus(uint256 busId, string memory note) public onlyAuthorizedCoordinator {
-      //  ICommonFunctions.BusItem memory bus = companyContract.getBusData(busId);
-       // require(bus.status == ICommonFunctions.BusStatus.Waiting, "Bus cannot be noted in its current state.");
-
-        // Reuse updateBusStatusWithNote for noting as well, indicating the action and actor
-        //companyContract.updateBusStatusWithNote(busId, ICommonFunctions.BusStatus.Noted, note, msg.sender);
-    //}
+    // Function to set a new address for the shared storage contract
+    // This might be necessary if the shared storage contract is upgraded or changed
+    function setSharedStorageAddress(address _newSharedStorageAddress) external onlyCoordinator {
+        require(_newSharedStorageAddress != address(0), "New shared storage contract address cannot be zero.");
+        sharedStorage = ICommonFunctions(_newSharedStorageAddress);
+    }
 }
-      
-

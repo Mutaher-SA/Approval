@@ -34,18 +34,18 @@
 			"functionDebugData": {},
 			"generatedSources": [],
 			"linkReferences": {},
-			"object": "6080604052348015600e575f80fd5b50603e80601a5f395ff3fe60806040525f80fdfea26469706673582212208d5351bc8339eaf6d196529dec1d1fe981d23316d66abf321f5348df789a9ba664736f6c63430008160033",
-			"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xE JUMPI PUSH0 DUP1 REVERT JUMPDEST POP PUSH1 0x3E DUP1 PUSH1 0x1A PUSH0 CODECOPY PUSH0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 DUP14 MSTORE8 MLOAD 0xBC DUP4 CODECOPY 0xEA 0xF6 0xD1 SWAP7 MSTORE SWAP14 0xEC SAR 0x1F 0xE9 DUP2 0xD2 CALLER AND 0xD6 PUSH11 0xBF321F5348DF789A9BA664 PUSH20 0x6F6C634300081600330000000000000000000000 ",
-			"sourceMap": "74:1109:0:-:0;;;;;;;;;;;;;;;;;;;"
+			"object": "6080604052348015600e575f80fd5b50603e80601a5f395ff3fe60806040525f80fdfea2646970667358221220c851f5e603ba65b528c28318fcc3a29d2e3d8601f1e4c7ce33f0adf2e57003a264736f6c63430008160033",
+			"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xE JUMPI PUSH0 DUP1 REVERT JUMPDEST POP PUSH1 0x3E DUP1 PUSH1 0x1A PUSH0 CODECOPY PUSH0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xC8 MLOAD CREATE2 0xE6 SUB 0xBA PUSH6 0xB528C28318FC 0xC3 LOG2 SWAP14 0x2E RETURNDATASIZE DUP7 ADD CALL 0xE4 0xC7 0xCE CALLER CREATE 0xAD CALLCODE 0xE5 PUSH17 0x3A264736F6C6343000816003300000000 ",
+			"sourceMap": "72:1489:0:-:0;;;;;;;;;;;;;;;;;;;"
 		},
 		"deployedBytecode": {
 			"functionDebugData": {},
 			"generatedSources": [],
 			"immutableReferences": {},
 			"linkReferences": {},
-			"object": "60806040525f80fdfea26469706673582212208d5351bc8339eaf6d196529dec1d1fe981d23316d66abf321f5348df789a9ba664736f6c63430008160033",
-			"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 DUP14 MSTORE8 MLOAD 0xBC DUP4 CODECOPY 0xEA 0xF6 0xD1 SWAP7 MSTORE SWAP14 0xEC SAR 0x1F 0xE9 DUP2 0xD2 CALLER AND 0xD6 PUSH11 0xBF321F5348DF789A9BA664 PUSH20 0x6F6C634300081600330000000000000000000000 ",
-			"sourceMap": "74:1109:0:-:0;;;;;"
+			"object": "60806040525f80fdfea2646970667358221220c851f5e603ba65b528c28318fcc3a29d2e3d8601f1e4c7ce33f0adf2e57003a264736f6c63430008160033",
+			"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xC8 MLOAD CREATE2 0xE6 SUB 0xBA PUSH6 0xB528C28318FC 0xC3 LOG2 SWAP14 0x2E RETURNDATASIZE DUP7 ADD CALL 0xE4 0xC7 0xCE CALLER CREATE 0xAD CALLCODE 0xE5 PUSH17 0x3A264736F6C6343000816003300000000 ",
+			"sourceMap": "72:1489:0:-:0;;;;;"
 		},
 		"gasEstimates": {
 			"creation": {
@@ -147,6 +147,56 @@
 				},
 				{
 					"indexed": false,
+					"internalType": "string",
+					"name": "note",
+					"type": "string"
+				},
+				{
+					"indexed": false,
+					"internalType": "address",
+					"name": "notedBy",
+					"type": "address"
+				}
+			],
+			"name": "BusNoted",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "uint256",
+					"name": "id",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"internalType": "string",
+					"name": "reason",
+					"type": "string"
+				},
+				{
+					"indexed": false,
+					"internalType": "address",
+					"name": "rejectedBy",
+					"type": "address"
+				}
+			],
+			"name": "BusRejected",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "uint256",
+					"name": "id",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
 					"internalType": "enum DataStr.BusStatus",
 					"name": "newStatus",
 					"type": "uint8"
@@ -165,6 +215,25 @@
 				}
 			],
 			"name": "BusStatusUpdated",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "busId",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "nftTokenId",
+					"type": "uint256"
+				}
+			],
+			"name": "NftTokenIdUpdated",
 			"type": "event"
 		},
 		{

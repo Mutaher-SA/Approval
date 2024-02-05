@@ -123,6 +123,25 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					}
+				],
+				"name": "getBusStatus",
+				"outputs": [
+					{
+						"internalType": "enum DataStr.BusStatus",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "id",
 						"type": "uint256"
 					},
@@ -143,6 +162,24 @@
 					}
 				],
 				"name": "updateBusStatus",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "nftTokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "updateNft",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -194,19 +231,19 @@
 	},
 	"sources": {
 		"contracts/Approval_Contracts/DataStr.sol": {
-			"keccak256": "0x6e93769b3434906df0a71b858dbb62136b21f0236c5a4ce35c4f5096e45ae09f",
+			"keccak256": "0xfa41d0527493e743fee64614d6cbafc0d1469e502f3f32af3f9aa0d67713b405",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://a785af1d872ed8005146891417c2d9777012db5a10bab537014149ab750557be",
-				"dweb:/ipfs/QmQ1yGXABShNvwBybjGk4HaMJx2ixpsRh7qzhg6RPGXJ4w"
+				"bzz-raw://bdfa6f1d7ecc95045ac9291e5ea72d692653c070b399e483918c5f1cbcc0013b",
+				"dweb:/ipfs/Qmf5yFjgcMCttxp28S46BRaxzXZNwMB7YAozbAi5eeUeNd"
 			]
 		},
 		"contracts/Approval_Contracts/ICommonFunctions.sol": {
-			"keccak256": "0x92b69a30a8013aa165218d976ea60b8b002095cbcfaf165ecc5c31e85eb61d66",
+			"keccak256": "0x076e9312958ae6d82e2ba75415fd8619fbd65c5b36b68b0921a22e5a51f65546",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://e176af0c3f77e9fc7d6e7270d4c384691113734171f0db5149de844a48fdf2e3",
-				"dweb:/ipfs/QmRpei7udeSgVKKMbUqZgzna6hKZMgoRM7rUZzHoGtHNyM"
+				"bzz-raw://1589da2647e70696a17e231566a5f8079a174dd35d7a3710a0ba7acce7734ae5",
+				"dweb:/ipfs/QmfTiWRPbX692PHA6sMcHnH1WaApq7NYvQbje9HS2dDyBW"
 			]
 		}
 	},

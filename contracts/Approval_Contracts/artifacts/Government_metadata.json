@@ -14,7 +14,7 @@
 					},
 					{
 						"internalType": "address",
-						"name": "_companyContractAddress",
+						"name": "_sharedStorageAddress",
 						"type": "address"
 					},
 					{
@@ -25,6 +25,69 @@
 				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "notedBy",
+						"type": "address"
+					}
+				],
+				"name": "BusNoted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "reason",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "rejectedBy",
+						"type": "address"
+					}
+				],
+				"name": "BusRejected",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "SharedStorage",
+				"outputs": [
+					{
+						"internalType": "contract ICommonFunctions",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			},
 			{
 				"inputs": [],
@@ -44,11 +107,6 @@
 					{
 						"internalType": "uint256",
 						"name": "busId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "companyId",
 						"type": "uint256"
 					},
 					{
@@ -73,7 +131,7 @@
 				"name": "busNftContract",
 				"outputs": [
 					{
-						"internalType": "contract BusNft",
+						"internalType": "contract BusNFT",
 						"name": "",
 						"type": "address"
 					}
@@ -82,16 +140,52 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "companyContract",
-				"outputs": [
+				"inputs": [
 					{
-						"internalType": "contract Company",
-						"name": "",
-						"type": "address"
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
 					}
 				],
-				"stateMutability": "view",
+				"name": "noteBusWithReason",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "reason",
+						"type": "string"
+					}
+				],
+				"name": "rejectBusWithReason",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					}
+				],
+				"name": "revokeBusApproval",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -259,35 +353,43 @@
 			]
 		},
 		"contracts/Approval_Contracts/BusNFT.sol": {
-			"keccak256": "0xedf40275dde81920388db4bac2872e956c06f3c27d2dcd49a47d0523b0887fc4",
-			"license": "MIT",
+			"keccak256": "0x7ce8e7466157334c6e7723631ee8e27e5fd5bfdc06131c4ce4405d63c9b37d82",
+			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://5869166c47802248da8ad4f21818373643470542103341b3e41dfc56f0246f82",
-				"dweb:/ipfs/QmRVqpZu4S1QbbxxdLzoJYiCP3YbEbxToKB7k1ztZUgNtj"
+				"bzz-raw://c89d4a21dff16be4a8887f8c99eb7f73e613a34776e766a8bd0e998ee074fb4b",
+				"dweb:/ipfs/QmX1dwcEbWLzRvy2NPruTyzgrmDeTFog4GoWh7vXFpHjGc"
+			]
+		},
+		"contracts/Approval_Contracts/DataStr.sol": {
+			"keccak256": "0xfa41d0527493e743fee64614d6cbafc0d1469e502f3f32af3f9aa0d67713b405",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://bdfa6f1d7ecc95045ac9291e5ea72d692653c070b399e483918c5f1cbcc0013b",
+				"dweb:/ipfs/Qmf5yFjgcMCttxp28S46BRaxzXZNwMB7YAozbAi5eeUeNd"
 			]
 		},
 		"contracts/Approval_Contracts/Goverment.sol": {
-			"keccak256": "0x09aa0433abb362546d00813e0fefd4b222796440f932646230b7c446518c83fd",
+			"keccak256": "0x93ddfaa57c1986b9ff9f9a0262d307b4265f6c93a6f80a16306c31bf571a4b23",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://4785b463ed631513fc48fe6673830e3575ff076dfc52c848f1f61cb33524770e",
-				"dweb:/ipfs/QmVhRAsiNpijz8jx9gnfprYHBRe9EwqMMpBT2cgNaJBVS2"
+				"bzz-raw://5070e3eb9fe763dd87d97a5b5291a9acbc492c89f0aaccc59538de7b138cd902",
+				"dweb:/ipfs/QmYsxdYvHdcbkqXieqreH7fSDequaw3DS5YpCR3GpFSdnF"
 			]
 		},
 		"contracts/Approval_Contracts/ICommonFunctions.sol": {
-			"keccak256": "0xc4d9a6570c378796192c10fcb9f8bc905be459534e7878068aa2248ebf96db6e",
+			"keccak256": "0x076e9312958ae6d82e2ba75415fd8619fbd65c5b36b68b0921a22e5a51f65546",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://8037deb46bdb6b979e63a1a043d183e1f325a4a702de842c11116118d3d53489",
-				"dweb:/ipfs/QmSDa2Mh6mhnyU5FYeroBDTc9Xnmue6HrJU52PyisnbbH3"
+				"bzz-raw://1589da2647e70696a17e231566a5f8079a174dd35d7a3710a0ba7acce7734ae5",
+				"dweb:/ipfs/QmfTiWRPbX692PHA6sMcHnH1WaApq7NYvQbje9HS2dDyBW"
 			]
 		},
-		"contracts/Approval_Contracts/company.sol": {
-			"keccak256": "0xb6a34942d7ba1484c0100d1aae7da026610012adc5d8407e6de8283442e6062f",
+		"contracts/Approval_Contracts/SharedStorage.sol": {
+			"keccak256": "0x7fb6a3b53994d51369634932ff7d7e668b46060b3ead67a9a936911f40319d9f",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://5fd26f61a63ee33587949bd8495d81aaca292deb92a0daa7c0ad305fcbef523f",
-				"dweb:/ipfs/QmQntUDrViJ244AV2SAJzqyZHXXzhTyMKKpwKm2Twghzw1"
+				"bzz-raw://1e2e0a60eb9a52e9d732c517c083be9b4f9032c2adc35910e81b53ec37f384e5",
+				"dweb:/ipfs/QmazjSdR7eQjrCsRnqyENW7TG5XhLF5Yt4tHVxToF1faSC"
 			]
 		}
 	},

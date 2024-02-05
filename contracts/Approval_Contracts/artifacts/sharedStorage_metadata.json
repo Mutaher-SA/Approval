@@ -123,6 +123,25 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "nftTokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "NftTokenIdUpdated",
+				"type": "event"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -153,6 +172,19 @@
 				"name": "addBus",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "addressManager",
+				"outputs": [
+					{
+						"internalType": "contract AddressManager",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -308,6 +340,25 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					}
+				],
+				"name": "getBusStatus",
+				"outputs": [
+					{
+						"internalType": "enum DataStr.BusStatus",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "id",
 						"type": "uint256"
 					},
@@ -328,6 +379,24 @@
 					}
 				],
 				"name": "updateBusStatus",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "nftTokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "updateNft",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -364,7 +433,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Approval_Contracts/sharedStorage.sol": "sharedStorage"
+			"contracts/Approval_Contracts/SharedStorage.sol": "sharedStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -378,6 +447,14 @@
 		"remappings": []
 	},
 	"sources": {
+		"@openzeppelin/contracts/utils/Counters.sol": {
+			"keccak256": "0xf0018c2440fbe238dd3a8732fa8e17a0f9dce84d31451dc8a32f6d62b349c9f1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://59e1c62884d55b70f3ae5432b44bb3166ad71ae3acd19c57ab6ddc3c87c325ee",
+				"dweb:/ipfs/QmezuXg5GK5oeA4F91EZhozBFekhq5TD966bHPH18cCqhu"
+			]
+		},
 		"contracts/Approval_Contracts/AddressManager.sol": {
 			"keccak256": "0x398b6dbb5bd58ee0396112ca88d5a6391cc90c326bd80eea33a39219e3c6674b",
 			"license": "GPL-3.0",
@@ -387,27 +464,27 @@
 			]
 		},
 		"contracts/Approval_Contracts/DataStr.sol": {
-			"keccak256": "0x6e93769b3434906df0a71b858dbb62136b21f0236c5a4ce35c4f5096e45ae09f",
+			"keccak256": "0xfa41d0527493e743fee64614d6cbafc0d1469e502f3f32af3f9aa0d67713b405",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://a785af1d872ed8005146891417c2d9777012db5a10bab537014149ab750557be",
-				"dweb:/ipfs/QmQ1yGXABShNvwBybjGk4HaMJx2ixpsRh7qzhg6RPGXJ4w"
+				"bzz-raw://bdfa6f1d7ecc95045ac9291e5ea72d692653c070b399e483918c5f1cbcc0013b",
+				"dweb:/ipfs/Qmf5yFjgcMCttxp28S46BRaxzXZNwMB7YAozbAi5eeUeNd"
 			]
 		},
 		"contracts/Approval_Contracts/ICommonFunctions.sol": {
-			"keccak256": "0x92b69a30a8013aa165218d976ea60b8b002095cbcfaf165ecc5c31e85eb61d66",
+			"keccak256": "0x076e9312958ae6d82e2ba75415fd8619fbd65c5b36b68b0921a22e5a51f65546",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://e176af0c3f77e9fc7d6e7270d4c384691113734171f0db5149de844a48fdf2e3",
-				"dweb:/ipfs/QmRpei7udeSgVKKMbUqZgzna6hKZMgoRM7rUZzHoGtHNyM"
+				"bzz-raw://1589da2647e70696a17e231566a5f8079a174dd35d7a3710a0ba7acce7734ae5",
+				"dweb:/ipfs/QmfTiWRPbX692PHA6sMcHnH1WaApq7NYvQbje9HS2dDyBW"
 			]
 		},
-		"contracts/Approval_Contracts/sharedStorage.sol": {
-			"keccak256": "0x6d33fbe76d47c56177cbed01254c565a25fa2a8f0c66565b586ff6e9374a6ee8",
+		"contracts/Approval_Contracts/SharedStorage.sol": {
+			"keccak256": "0x7fb6a3b53994d51369634932ff7d7e668b46060b3ead67a9a936911f40319d9f",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://cc35bc8de22184806cc6554e435f9dc32edc5720aa106b30aa9ff513e990b2de",
-				"dweb:/ipfs/QmQkYR1nw4byz5ZPFcqgMCUxAkNMGLV2Lo1QzPKUhC8Vta"
+				"bzz-raw://1e2e0a60eb9a52e9d732c517c083be9b4f9032c2adc35910e81b53ec37f384e5",
+				"dweb:/ipfs/QmazjSdR7eQjrCsRnqyENW7TG5XhLF5Yt4tHVxToF1faSC"
 			]
 		}
 	},

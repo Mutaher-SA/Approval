@@ -1,186 +1,85 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.8.2 <0.9.0;
 
-import "@openzeppelin/contracts/utils/Counters.sol";
 import "./ICommonFunctions.sol";
-import "./AddressManager.sol"; // Assuming AddressManager is used for access control
-import "./DataStructures.sol";
-import "./ISharedStorage.sol"; // Interface for SharedStorage interactions
+import "./AddressManager.sol";
+import "./DataStr.sol"; // For the struct and enum definitions
 
-contract Company is ICommonFunctions {
-    using Counters for Counters.Counter;
-    Counters.Counter private _busId;
-
-    AddressManager public addressManager; // Access control
+contract Company {
+    // Address of the sharedStorage contract to interact with the data layer
+    ICommonFunctions sharedStorage;
+    AddressManager addressManager;
 
     address public coordinatorAddress;
     address public governmentAddress;
 
-    mapping(uint256 => BusItem) public buses; // for buses
-    mapping(uint256 => address) private busOwners;  // for keep tracking of the ownership of each bus
-
-    //constructor(address _addressManager) {
-    //    addressManager = AddressManager(_addressManager);
-    //}
-
-    ISharedStorage public sharedStorage;
-
-    constructor(address _coordinatorAddress, address _addressManagerAddress, address _sharedStorageAddress) {
-        require(_coordinatorAddress != address(0), "Coordinator address cannot be zero.");
+    // Constructor sets the addresses for sharedStorage, AddressManager, Coordinator, and Government
+    //constructor(address _sharedStorageAddress, address _addressManagerAddress, address _coordinatorAddress, address _governmentAddress) {
+    constructor(address _sharedStorageAddress, address _addressManagerAddress, address _coordinatorAddress) {
+        require(_sharedStorageAddress != address(0), "sharedStorage address cannot be zero.");
         require(_addressManagerAddress != address(0), "AddressManager address cannot be zero.");
-        require(_sharedStorageAddress != address(0), "SharedStorage address cannot be zero.");
-        coordinatorAddress = _coordinatorAddress;
+        require(_coordinatorAddress != address(0), "Coordinator address cannot be zero.");
+    //    require(_governmentAddress != address(0), "Government address cannot be zero.");
+
+        sharedStorage = ICommonFunctions(_sharedStorageAddress);
         addressManager = AddressManager(_addressManagerAddress);
-        sharedStorage = ISharedStorage(_sharedStorageAddress);
+        coordinatorAddress = _coordinatorAddress;
+    //    governmentAddress = _governmentAddress;
     }
 
-
+    // Modifier to restrict function access to the company role
     modifier onlyCompany() {
-         require(addressManager.isCompanyAddressAllowed(msg.sender), "Company Not Allowed to access Im in COmapny Modifier");
+        require(addressManager.isCompanyAddressAllowed(msg.sender), "Caller is not allowed: Company only.");
         _;
     }
 
-    modifier onlyGoverment() {
-        require(addressManager.isGovernmentAddressAllowed(msg.sender), "Goverment address is Not Allowed to access");
+     //Modifier to restrict function access to the government role
+     modifier onlyGovernment() {
+        require(msg.sender == governmentAddress, "Caller is not allowed: Government only.");
         _;
     }
 
-     modifier onlyCoordinator() {
-        require(addressManager.isCoordinatorAddressAllowed(msg.sender), "Cooredinator Address is Not Allowed to access");
+    // Modifier to restrict function access to the coordinator role
+    modifier onlyCoordinator() {
+        require(msg.sender == coordinatorAddress, "Caller is not allowed: Coordinator only.");
         _;
     }
+    event GovernmentAddressUpdated(address newAddress);
 
-    modifier AllRoles() {
-    bool isAuthorized = addressManager.isCompanyAddressAllowed(msg.sender) ||
-                        addressManager.isCoordinatorAddressAllowed(msg.sender) ||
-                        addressManager.isGovernmentAddressAllowed(msg.sender);
-    require(isAuthorized, "You are not  is not authorized!!!");
-    _;
-}
+    function setGovernmentAddress(address _newAddress) public  {
+        require(_newAddress != address(0), "New address cannot be zero.");
+        governmentAddress = _newAddress;
+        emit GovernmentAddressUpdated(_newAddress);
+    }
 
+    // Function to add a bus using the sharedStorage contract
+    function addBus(uint256 model, string calldata vim_number, uint256 company_number, string calldata plate_number) external onlyCompany {
+        sharedStorage.addBus(model, vim_number, company_number, plate_number, msg.sender);
+    }
 
-    function addBus(uint256 _model, string memory _vim_number, uint256 _company_number, string memory _plate_number) external override onlyCompany {
-        require(_model>2014,"Bus Model shoudl be larger than 2014 Due to Goverment Regulations!");
-        require(bytes(_vim_number).length>1,"Car _vim_number shoudl be larger than 24 chars");
-        require(_company_number>0,"_company_number shoudl be larger than Zero");
-
-        uint256 busId = _busId.current();
-        _busId.increment();
+    function ForeWardToCoordinatorContract(uint256 busId) external onlyCompany {
+        DataStr.BusItem memory bus = sharedStorage.getBusData(busId);
+        require(bus.status != DataStr.BusStatus.Forward_To_Coordinator ||
+        bus.status != DataStr.BusStatus.Rejected, "Bus already forwarded to Coordinator");
         
-        uint256 expireYear = _model + 10; // 10 years from current Model
-        
-        buses[busId] = BusItem({
-            id: busId,
-            model: _model,
-            vim_number: _vim_number,
-            company_number: _company_number,
-            plate_number: _plate_number,
-            expireYear: expireYear,
-            status: BusStatus.Waiting,
-            rejectNote: "",
-            rejectBy: address(0),
-            owner: msg.sender,
-            creator: msg.sender,
-            nftTokenId: 0 // Initialized to 0, to be updated upon government approval
-        });
-
-        emit BusCreated(busId, _model, _vim_number, _company_number, _plate_number, expireYear, BusStatus.Waiting, "", address(0), msg.sender, msg.sender, 0);
-    }
-
-    function getBusData(uint256 id) public view AllRoles returns (BusItem memory) {
-    //require(id < _busId.current(), "The Bus does not exist!");
-    return buses[id];
+        sharedStorage.updateBusStatus(busId, DataStr.BusStatus.Forward_To_Coordinator, "Transferred to Coordinator", msg.sender);
+        sharedStorage.updateOwnership(busId, coordinatorAddress);
 }
 
-   function getBusStatus(uint256 busId) public view AllRoles returns  (BusStatus) {
-        //require(busId >= 0 && busId < _busId.current(), "Invalid or non-existent bus ID");
-        return buses[busId].status;
-}
-
-   function updateBusStatus(uint256 id, BusStatus newStatus) external override onlyCoordinator onlyGoverment {
-        //require(id < _busId.current(), "The Bus does not exist!");
-        buses[id].status = newStatus;
-   }
-
-     function forwardBusToCoordinator(uint256 busToForwardId) public onlyCompany {
-        require(busToForwardId < _busId.current(), "The Bus does not exist!");
-        buses[busToForwardId].status = BusStatus.ForwardToCoordinator;
-        buses[busToForwardId].owner = coordinatorAddress;               // Update the owner to the coordinator's address
+    // Function to update the status of a bus
+    function updateBusStatus(uint256 id, DataStr.BusStatus newStatus, string calldata note) external onlyCoordinator {
+        sharedStorage.updateBusStatus(id, newStatus, note, msg.sender);
     }
 
-    function setCoordinatorAddress(address _newCoordinatorContractAddress) external override onlyGoverment {
-        coordinatorAddress = _newCoordinatorContractAddress;
+    // Function to update the ownership of a bus
+    function updateOwnership(uint256 id, address newOwner) external onlyGovernment {
+        sharedStorage.updateOwnership(id, newOwner);
     }
 
-    function setGovermentAddress(address _newGovermentContractAddress) external override  onlyGoverment {
-        governmentAddress = _newGovermentContractAddress;
+    // Function to get the data of a specific bus by its ID
+    function getBusData(uint256 id) external view returns (DataStr.BusItem memory) {
+        return sharedStorage.getBusData(id);
     }
 
-    function getBusesByStatus(BusStatus _status) public view override AllRoles returns (BusItem[] memory)  {
-        uint256 totalBuses = _busId.current();
-        uint256 count = 0;
-        for (uint256 i = 0; i < totalBuses; i++) {
-            if (buses[i].status == _status) {
-                count++;
-            }
-        }
-
-        BusItem[] memory busesByStatus = new BusItem[](count);
-        uint256 index = 0;
-        for (uint256 i = 0; i < totalBuses; i++) {
-            if (buses[i].status == _status) {
-                busesByStatus[index] = buses[i];
-                index++;
-            }
-        }
-        return busesByStatus;
-    }
-
-     function updateBusStatusWithNote(uint256 _BusNo, BusStatus _newStatus, string memory _note, address _updatedBy) external override onlyGoverment onlyCoordinator {
-        require(_BusNo < _busId.current(), "Bus does not exist.");
-        require(
-                addressManager.isCompanyAddressAllowed(msg.sender) || 
-                addressManager.isGovernmentAddressAllowed(msg.sender), 
-                "Not authorized to update bus status."
-        );
-
-        BusItem memory bus = buses[_BusNo];
-        bus.status = _newStatus;
-        bus.rejectNote = _note;
-        bus.rejectBy = _updatedBy;
-        
-        emit BusStatusUpdated(_BusNo, _newStatus, _note, _updatedBy);
-    }
-
-   function updateOwnership(uint256 busId, address newOwner) external override {
-    require(busId < _busId.current(), "The Bus does not exist!");
-    require(newOwner != address(0), "New owner cannot be the zero address");
-    
-    // Check if the caller is the current owner or an authorized entity
-    require(
-        buses[busId].owner == msg.sender || 
-        addressManager.isGovernmentAddressAllowed(msg.sender) || 
-        msg.sender == coordinatorAddress,
-        "Caller not authorized to update ownership"
-    );
-
-    // Update the bus owner
-    buses[busId].owner = newOwner;
-    
-    // Emit an event for the ownership update (if you have an event defined for this)
-    emit OwnershipUpdated(busId, newOwner);
-}
-
-
-    function _updateNftTokenId(uint256 _BusNo, uint256 nftTokenId) internal onlyGoverment {
-        //require(_BusNo < _busId.current(), "Bus does not exist.");
-        buses[_BusNo].nftTokenId = nftTokenId;
-    }
-
-    // Public function to be called by the Government contract
-    function updateNftTokenIdByGovernment(uint256 busId, uint256 nftTokenId) external onlyGoverment {
-        require(addressManager.isGovernmentAddressAllowed(msg.sender), "Unauthorized access");
-        _updateNftTokenId(busId, nftTokenId);
-    }
-
+    // Additional functions for coordinator and government address management, and other logic as needed...
 }

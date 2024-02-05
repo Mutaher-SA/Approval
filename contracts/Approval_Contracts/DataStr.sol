@@ -1,10 +1,17 @@
-
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.8.2 <0.9.0;
 
 contract DataStr{ 
 
-enum BusStatus { Waiting, Approved, Rejected, Noted, ForwardToCoordinator , ForwardToHTMC }
+enum BusStatus { 
+                Waiting, 
+                Approved, 
+                Rejected, 
+                Noted, 
+                Forward_To_Coordinator, 
+                Forward_To_Goverment,
+                New_Bus
+                }
 
     struct BusItem {
     uint256 id;
@@ -44,4 +51,10 @@ enum BusStatus { Waiting, Approved, Rejected, Noted, ForwardToCoordinator , Forw
         address updatedBy);
     
     event OwnershipUpdated(uint256 indexed busId, address indexed newOwner);
+
+    event NftTokenIdUpdated(uint256 busId, uint256 nftTokenId);
+
+    event BusRejected(uint256 indexed id, string reason, address rejectedBy);
+    event BusNoted(uint256 indexed id, string note, address notedBy);
+
 }

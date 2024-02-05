@@ -95,6 +95,56 @@
 					},
 					{
 						"indexed": false,
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "notedBy",
+						"type": "address"
+					}
+				],
+				"name": "BusNoted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "reason",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "rejectedBy",
+						"type": "address"
+					}
+				],
+				"name": "BusRejected",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
 						"internalType": "enum DataStr.BusStatus",
 						"name": "newStatus",
 						"type": "uint8"
@@ -113,6 +163,25 @@
 					}
 				],
 				"name": "BusStatusUpdated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "nftTokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "NftTokenIdUpdated",
 				"type": "event"
 			},
 			{
@@ -163,11 +232,11 @@
 	},
 	"sources": {
 		"contracts/Approval_Contracts/DataStr.sol": {
-			"keccak256": "0x6e93769b3434906df0a71b858dbb62136b21f0236c5a4ce35c4f5096e45ae09f",
+			"keccak256": "0x030e2988cc0ca556cdfe3d2631574f8876ead426372ed2b754528514cd00a728",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://a785af1d872ed8005146891417c2d9777012db5a10bab537014149ab750557be",
-				"dweb:/ipfs/QmQ1yGXABShNvwBybjGk4HaMJx2ixpsRh7qzhg6RPGXJ4w"
+				"bzz-raw://02e6d9b4255b007f7fc54fdd1babb913c58d58888a0a694669bce7de7ca4a442",
+				"dweb:/ipfs/QmZTPjk6xHrp8YPqyJW9imFZbtMd8S2NJL8npTgZqv6M7c"
 			]
 		}
 	},

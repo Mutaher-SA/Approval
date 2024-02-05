@@ -244,11 +244,11 @@
 	},
 	"sources": {
 		"contracts/Approval_Contracts/AddressManager.sol": {
-			"keccak256": "0x398b6dbb5bd58ee0396112ca88d5a6391cc90c326bd80eea33a39219e3c6674b",
+			"keccak256": "0x7ce6ec36b024c9452b8ca12b731cde6403cbd6460ae0f6f0d048ac3b4849999e",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://49c8470ded39cf3225b6a8bfc9112d4e4aac95a73bf87567bfa0bca3b8305450",
-				"dweb:/ipfs/QmV9e4w74EkzZCyiycT5g4pAEpunz6qEL6KXLnEeFt257C"
+				"bzz-raw://43987dbf9f59a5b574d019d458824bbb1a1a3e976c78d278b8e5656bb4bf849f",
+				"dweb:/ipfs/QmbwAuBByFH71z3im88bD8HxHYtRiMEUKU1MC4P2qqPVbD"
 			]
 		}
 	},
