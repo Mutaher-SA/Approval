@@ -1,0 +1,390 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "model",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "vim_number",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "company_number",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "plate_number",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "expire_date",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "enum Company.BusStatus",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "creatore",
+						"type": "address"
+					}
+				],
+				"name": "BusCreateted",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_model",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_vim_number",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_company_number",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_plate_number",
+						"type": "string"
+					}
+				],
+				"name": "addBus",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "buses",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "model",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "vim_number",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "company_number",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "plate_number",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "expire_date",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum Company.BusStatus",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "coordinatorContractAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busToForewardId",
+						"type": "uint256"
+					}
+				],
+				"name": "forwardBusToCoordinator",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAllSentToCoordinator",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "model",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "vim_number",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "company_number",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "plate_number",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "expire_date",
+								"type": "uint256"
+							},
+							{
+								"internalType": "enum Company.BusStatus",
+								"name": "status",
+								"type": "uint8"
+							},
+							{
+								"internalType": "address",
+								"name": "owner",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							}
+						],
+						"internalType": "struct Company.BusItem[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "getSingleBus",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "model",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "vim_number",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "company_number",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "plate_number",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "expire_date",
+								"type": "uint256"
+							},
+							{
+								"internalType": "enum Company.BusStatus",
+								"name": "status",
+								"type": "uint8"
+							},
+							{
+								"internalType": "address",
+								"name": "owner",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							}
+						],
+						"internalType": "struct Company.BusItem",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_newCoordinatorContractAddress",
+						"type": "address"
+					}
+				],
+				"name": "setCoordinatorAddress",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum Company.BusStatus",
+						"name": "newStatus",
+						"type": "uint8"
+					}
+				],
+				"name": "updateBusStatus",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/company.sol": "Company"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/utils/Counters.sol": {
+			"keccak256": "0xf0018c2440fbe238dd3a8732fa8e17a0f9dce84d31451dc8a32f6d62b349c9f1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://59e1c62884d55b70f3ae5432b44bb3166ad71ae3acd19c57ab6ddc3c87c325ee",
+				"dweb:/ipfs/QmezuXg5GK5oeA4F91EZhozBFekhq5TD966bHPH18cCqhu"
+			]
+		},
+		"contracts/company.sol": {
+			"keccak256": "0xa2cee662d706bf0adce5aba3e0c90b6fa68bd1ff4b15f109c9237fe542afddde",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://976d4e0c140e2a30d2d11944673e08335dc7837ec622b3afd83e5598f9c611a2",
+				"dweb:/ipfs/QmQPAXb9saWZ7Ac41QghRezQeHL4otT5xXxbpDWcPvYRqQ"
+			]
+		}
+	},
+	"version": 1
+}

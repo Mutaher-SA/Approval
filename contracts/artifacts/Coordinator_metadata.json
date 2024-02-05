@@ -1,0 +1,148 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_companyContractAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_governmentContractAddress",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "companyContract",
+				"outputs": [
+					{
+						"internalType": "contract Company",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					}
+				],
+				"name": "forwardBusToGovernment",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "governmentContract",
+				"outputs": [
+					{
+						"internalType": "contract IGovernment",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
+					}
+				],
+				"name": "noteBus",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					}
+				],
+				"name": "rejectBus",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/coordinator.sol": "Coordinator"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/IGovernment.sol": {
+			"keccak256": "0x2ecc550bf18292779e193418ccfa6bb91626a9855b4d4cb747c29687672e7b39",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://4b50479d8f64780fd4118537568480bfce7753cd46fb2fa0323dac32d47e8a10",
+				"dweb:/ipfs/QmdG6ktsNhP8DFekfi2ZTPLz22SkKvdqZ1rZWvFKsQho2G"
+			]
+		},
+		"contracts/company.sol": {
+			"keccak256": "0xcd046d65faecfcbcd5e3d9b43a56422c92d9d4a7570d4b2c03b619aec9dc2026",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://9a7c2f468c50c6e84f056c7c579a2c4edbc513cfd1b3d2f287b99eee0c1bf69b",
+				"dweb:/ipfs/QmeWNuNpHGpYv8B4zHxBeMAib5B6Q8WSzEuJTdd8PqEV2K"
+			]
+		},
+		"contracts/coordinator.sol": {
+			"keccak256": "0xeba5d369d7f5f3de35eb17ac6d6ec9c33b0dafd4ab896d0760e7ae7a42b9dffd",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://3b981c81a4c0f5b181b15cf96f80214f98e719803da3f811fcc44000c17e606c",
+				"dweb:/ipfs/QmdXLj6NKJ5iGdVQabKJ1iJcHuBQjGM3AJysZEtcovx3cW"
+			]
+		}
+	},
+	"version": 1
+}

@@ -1,0 +1,471 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_roadCharge",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "memberAddress",
+						"type": "address"
+					}
+				],
+				"name": "AuthorizedMemberAdded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "teamAddress",
+						"type": "address"
+					}
+				],
+				"name": "AuthorizedTeamAdded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "newRoadCharge",
+						"type": "uint256"
+					}
+				],
+				"name": "RoadChargeUpdated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "companyId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "category",
+						"type": "string"
+					}
+				],
+				"name": "ViolationReported",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "memberAddress",
+						"type": "address"
+					}
+				],
+				"name": "addAuthorizedMember",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "teamAddress",
+						"type": "address"
+					}
+				],
+				"name": "addAuthorizedTeam",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "authorizedMembers",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "authorizedTeams",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "companyId",
+						"type": "uint256"
+					}
+				],
+				"name": "calculateTotalPenaltyA",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "companyId",
+						"type": "uint256"
+					}
+				],
+				"name": "calculateTotalPenaltyB",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_companyId",
+						"type": "uint256"
+					}
+				],
+				"name": "getViolationsForCompany",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "companyId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "busCompany",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "busCompanyNumber",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "busPlateNumber",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "location",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "numberOfPassengers",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "violationsIssuer",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "dateOfViolation",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "category",
+								"type": "string"
+							}
+						],
+						"internalType": "struct BusViolationsContract.Violation[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_companyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_busCompany",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_busCompanyNumber",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_busPlateNumber",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_location",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_numberOfPassengers",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_violationsIssuer",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_dateOfViolation",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_category",
+						"type": "string"
+					}
+				],
+				"name": "reportViolation",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "roadCharge",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_newRoadCharge",
+						"type": "uint256"
+					}
+				],
+				"name": "updateRoadCharge",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "violationsByCompany",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "companyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "busCompany",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "busCompanyNumber",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "busPlateNumber",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "location",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numberOfPassengers",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "violationsIssuer",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "dateOfViolation",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "category",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"voilation.sol": "BusViolationsContract"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"voilation.sol": {
+			"keccak256": "0xb67646af0974214d9d1bca6f4dacd0e1a4159769196dd0983ba7a47b563a7aa6",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://b82f0242b383cf8b1e27d8f294f6e420a3dd724697cfca51ce520a56ca385d55",
+				"dweb:/ipfs/QmZ2J2hnNHcxW3XY32AjBSyH9287RvJjxH8yJJFbvtQTAC"
+			]
+		}
+	},
+	"version": 1
+}

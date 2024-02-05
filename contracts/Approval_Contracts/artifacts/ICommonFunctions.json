@@ -1,0 +1,220 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"goerli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"deployedBytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"gasEstimates": null,
+		"methodIdentifiers": {
+			"addBus(uint256,string,uint256,string,address)": "3c1e8772",
+			"getBusData(uint256)": "f2c24032",
+			"updateBusStatus(uint256,uint8,string,address)": "1d0476d4",
+			"updateOwnership(uint256,address)": "cc0266f7"
+		}
+	},
+	"abi": [
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "model",
+					"type": "uint256"
+				},
+				{
+					"internalType": "string",
+					"name": "vim_number",
+					"type": "string"
+				},
+				{
+					"internalType": "uint256",
+					"name": "company_number",
+					"type": "uint256"
+				},
+				{
+					"internalType": "string",
+					"name": "plate_number",
+					"type": "string"
+				},
+				{
+					"internalType": "address",
+					"name": "creator",
+					"type": "address"
+				}
+			],
+			"name": "addBus",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "id",
+					"type": "uint256"
+				}
+			],
+			"name": "getBusData",
+			"outputs": [
+				{
+					"components": [
+						{
+							"internalType": "uint256",
+							"name": "id",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "model",
+							"type": "uint256"
+						},
+						{
+							"internalType": "string",
+							"name": "vim_number",
+							"type": "string"
+						},
+						{
+							"internalType": "uint256",
+							"name": "company_number",
+							"type": "uint256"
+						},
+						{
+							"internalType": "string",
+							"name": "plate_number",
+							"type": "string"
+						},
+						{
+							"internalType": "uint256",
+							"name": "expireYear",
+							"type": "uint256"
+						},
+						{
+							"internalType": "enum DataStr.BusStatus",
+							"name": "status",
+							"type": "uint8"
+						},
+						{
+							"internalType": "string",
+							"name": "rejectNote",
+							"type": "string"
+						},
+						{
+							"internalType": "address",
+							"name": "rejectBy",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "owner",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "creator",
+							"type": "address"
+						},
+						{
+							"internalType": "uint256",
+							"name": "nftTokenId",
+							"type": "uint256"
+						}
+					],
+					"internalType": "struct DataStr.BusItem",
+					"name": "",
+					"type": "tuple"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "id",
+					"type": "uint256"
+				},
+				{
+					"internalType": "enum DataStr.BusStatus",
+					"name": "newStatus",
+					"type": "uint8"
+				},
+				{
+					"internalType": "string",
+					"name": "note",
+					"type": "string"
+				},
+				{
+					"internalType": "address",
+					"name": "updatedBy",
+					"type": "address"
+				}
+			],
+			"name": "updateBusStatus",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "id",
+					"type": "uint256"
+				},
+				{
+					"internalType": "address",
+					"name": "newOwner",
+					"type": "address"
+				}
+			],
+			"name": "updateOwnership",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		}
+	]
+}

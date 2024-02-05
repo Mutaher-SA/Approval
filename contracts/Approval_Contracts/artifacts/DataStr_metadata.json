@@ -1,0 +1,175 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "model",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "vim_number",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "company_number",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "plate_number",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "expire_date",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "enum DataStr.BusStatus",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "rejectNote",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "rejectBy",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "nftTokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "BusCreated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "enum DataStr.BusStatus",
+						"name": "newStatus",
+						"type": "uint8"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "updatedBy",
+						"type": "address"
+					}
+				],
+				"name": "BusStatusUpdated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipUpdated",
+				"type": "event"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Approval_Contracts/DataStr.sol": "DataStr"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Approval_Contracts/DataStr.sol": {
+			"keccak256": "0x6e93769b3434906df0a71b858dbb62136b21f0236c5a4ce35c4f5096e45ae09f",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://a785af1d872ed8005146891417c2d9777012db5a10bab537014149ab750557be",
+				"dweb:/ipfs/QmQ1yGXABShNvwBybjGk4HaMJx2ixpsRh7qzhg6RPGXJ4w"
+			]
+		}
+	},
+	"version": 1
+}

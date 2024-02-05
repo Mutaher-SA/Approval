@@ -1,0 +1,58 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					}
+				],
+				"name": "receiveBusForApproval",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/IGovernment.sol": "IGovernment"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/IGovernment.sol": {
+			"keccak256": "0xa3079886239db7414f47821ed2540fd24a0707f51df2d1a9c5fdb92b61d2bf0e",
+			"urls": [
+				"bzz-raw://657a52fc013a19c07990a6bb3b5e65e3952ca26c19ee278221c675ce69b6ea2d",
+				"dweb:/ipfs/QmU73VSA8zADscfkQPfT27pyQUgKxuynCQtB3YjZCmTDaS"
+			]
+		}
+	},
+	"version": 1
+}

@@ -1,0 +1,335 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "memberAddress",
+						"type": "address"
+					}
+				],
+				"name": "addAuthorizedMember",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "teamAddress",
+						"type": "address"
+					}
+				],
+				"name": "addAuthorizedTeam",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "authorizedMembers",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "authorizedTeams",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "enum BusViolationsContract.Category",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"name": "chargeAmounts",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "enum BusViolationsContract.Category",
+						"name": "_category",
+						"type": "uint8"
+					}
+				],
+				"name": "getChargeAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_companyId",
+						"type": "uint256"
+					}
+				],
+				"name": "getViolationsForCompany",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "companyId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "busCompany",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "busCompanyNumber",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "busPlateNumber",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "location",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "numberOfPassengers",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "violationsIssuer",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "dateOfViolation",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "category",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Violation[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_companyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_busCompany",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_busCompanyNumber",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_busPlateNumber",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_location",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_numberOfPassengers",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_violationsIssuer",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_dateOfViolation",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_category",
+						"type": "string"
+					}
+				],
+				"name": "reportViolation",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "violationsByCompany",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "companyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "busCompany",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "busCompanyNumber",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "busPlateNumber",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "location",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numberOfPassengers",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "violationsIssuer",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "dateOfViolation",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "category",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"voilation.sol": "BusViolationsContract"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"voilation.sol": {
+			"keccak256": "0xb050514bfef366dfaa5b21b4307302f2f3867eb996400682daa03012eba641e0",
+			"urls": [
+				"bzz-raw://38f9a4fdaf32d5afe6ee459d1b8ab32281e42e165f9f4b12211896789e43f17b",
+				"dweb:/ipfs/QmTpvo8kPVRwVtejCvXahLgd6kzXJn1i3HMKhdQSTdeArz"
+			]
+		}
+	},
+	"version": 1
+}

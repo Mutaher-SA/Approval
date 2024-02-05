@@ -1,0 +1,128 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_companyContractAddress",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					}
+				],
+				"name": "approveBusAndMintNFT",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "companyContract",
+				"outputs": [
+					{
+						"internalType": "contract Company",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
+					}
+				],
+				"name": "noteBus",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					}
+				],
+				"name": "rejectBus",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Goverment.sol": "Government"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Goverment.sol": {
+			"keccak256": "0x99fe55aa4ce2aef2ef11c7d4bf19d30c864e6083098ed19e97f3c06b9088f970",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://a9491e09d28b5cd9adc5094c8ed9a94d22c5a41d16af781cf9bff73c65a5309c",
+				"dweb:/ipfs/QmT9eq6ir5dKMzrkQ5Xjp1WftNutLcg9szYVWkL4UTX2t5"
+			]
+		},
+		"contracts/company.sol": {
+			"keccak256": "0xcd046d65faecfcbcd5e3d9b43a56422c92d9d4a7570d4b2c03b619aec9dc2026",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://9a7c2f468c50c6e84f056c7c579a2c4edbc513cfd1b3d2f287b99eee0c1bf69b",
+				"dweb:/ipfs/QmeWNuNpHGpYv8B4zHxBeMAib5B6Q8WSzEuJTdd8PqEV2K"
+			]
+		}
+	},
+	"version": 1
+}

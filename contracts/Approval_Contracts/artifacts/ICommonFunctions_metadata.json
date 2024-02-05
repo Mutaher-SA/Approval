@@ -1,0 +1,214 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "model",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "vim_number",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "company_number",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "plate_number",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					}
+				],
+				"name": "addBus",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "getBusData",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "model",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "vim_number",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "company_number",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "plate_number",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "expireYear",
+								"type": "uint256"
+							},
+							{
+								"internalType": "enum DataStr.BusStatus",
+								"name": "status",
+								"type": "uint8"
+							},
+							{
+								"internalType": "string",
+								"name": "rejectNote",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "rejectBy",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "owner",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "nftTokenId",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct DataStr.BusItem",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum DataStr.BusStatus",
+						"name": "newStatus",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "updatedBy",
+						"type": "address"
+					}
+				],
+				"name": "updateBusStatus",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "updateOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Approval_Contracts/ICommonFunctions.sol": "ICommonFunctions"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Approval_Contracts/DataStr.sol": {
+			"keccak256": "0x6e93769b3434906df0a71b858dbb62136b21f0236c5a4ce35c4f5096e45ae09f",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://a785af1d872ed8005146891417c2d9777012db5a10bab537014149ab750557be",
+				"dweb:/ipfs/QmQ1yGXABShNvwBybjGk4HaMJx2ixpsRh7qzhg6RPGXJ4w"
+			]
+		},
+		"contracts/Approval_Contracts/ICommonFunctions.sol": {
+			"keccak256": "0x92b69a30a8013aa165218d976ea60b8b002095cbcfaf165ecc5c31e85eb61d66",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://e176af0c3f77e9fc7d6e7270d4c384691113734171f0db5149de844a48fdf2e3",
+				"dweb:/ipfs/QmRpei7udeSgVKKMbUqZgzna6hKZMgoRM7rUZzHoGtHNyM"
+			]
+		}
+	},
+	"version": 1
+}

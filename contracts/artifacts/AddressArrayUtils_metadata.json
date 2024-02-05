@@ -1,0 +1,70 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "address[]",
+						"name": "list",
+						"type": "address[]"
+					}
+				],
+				"name": "addressArrayItemExist",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/AddressArrayUtils.sol": "AddressArrayUtils"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/AddressArrayUtils.sol": {
+			"keccak256": "0x2bc43a33f0577936481fd006a5e1a0474b4f1ccfd20e28d0680e74357a829028",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://cc217f6e5ea815d59aca2daee6cbb1a5c7aecf50fd22ba21b452506557086e4a",
+				"dweb:/ipfs/QmZ9XzLpWnUnA7GyVfjtqSwJ2Ea6YL8v8FGgvHCSR5GRyV"
+			]
+		}
+	},
+	"version": 1
+}
