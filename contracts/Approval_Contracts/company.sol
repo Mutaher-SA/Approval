@@ -53,8 +53,8 @@ contract Company {
     }
 
     // Function to add a bus using the sharedStorage contract
-    function addBus(uint256 model, string calldata vim_number, uint256 company_number, string calldata plate_number) external onlyCompany {
-        sharedStorage.addBus(model, vim_number, company_number, plate_number, msg.sender);
+    function addBus(uint256 model, string calldata vim_number, string calldata company_name, string calldata plate_number) external onlyCompany {
+        sharedStorage.addBus(model, vim_number, company_name, plate_number, msg.sender);
     }
 
     function ForeWardToCoordinatorContract(uint256 busId) external onlyCompany {

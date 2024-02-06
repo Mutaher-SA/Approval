@@ -18,9 +18,9 @@
 						"type": "string"
 					},
 					{
-						"internalType": "uint256",
-						"name": "company_number",
-						"type": "uint256"
+						"internalType": "string",
+						"name": "company_name",
+						"type": "string"
 					},
 					{
 						"internalType": "string",
@@ -66,19 +66,14 @@
 								"type": "string"
 							},
 							{
-								"internalType": "uint256",
-								"name": "company_number",
-								"type": "uint256"
+								"internalType": "string",
+								"name": "company_name",
+								"type": "string"
 							},
 							{
 								"internalType": "string",
 								"name": "plate_number",
 								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "expireYear",
-								"type": "uint256"
 							},
 							{
 								"internalType": "enum DataStr.BusStatus",
@@ -231,19 +226,19 @@
 	},
 	"sources": {
 		"contracts/Approval_Contracts/DataStr.sol": {
-			"keccak256": "0xfa41d0527493e743fee64614d6cbafc0d1469e502f3f32af3f9aa0d67713b405",
+			"keccak256": "0x31ed98a01b251bb050725006be1dfa7f8acbb9d0422f553b4f8cbfe81a7b65b5",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://bdfa6f1d7ecc95045ac9291e5ea72d692653c070b399e483918c5f1cbcc0013b",
-				"dweb:/ipfs/Qmf5yFjgcMCttxp28S46BRaxzXZNwMB7YAozbAi5eeUeNd"
+				"bzz-raw://f73a7c3558cb7e8d570b28397e7e755c43ea3741ca4280ca99cc4a484279e149",
+				"dweb:/ipfs/Qmar2HujipZjzpepZJBPFbXtJDcQoncfqF13xdDL5FP3L8"
 			]
 		},
 		"contracts/Approval_Contracts/ICommonFunctions.sol": {
-			"keccak256": "0x076e9312958ae6d82e2ba75415fd8619fbd65c5b36b68b0921a22e5a51f65546",
+			"keccak256": "0xa7402829f826eb720866a69e158fc9b7e14b847525b6784a83bd7b1503f059fa",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://1589da2647e70696a17e231566a5f8079a174dd35d7a3710a0ba7acce7734ae5",
-				"dweb:/ipfs/QmfTiWRPbX692PHA6sMcHnH1WaApq7NYvQbje9HS2dDyBW"
+				"bzz-raw://a9bc1d1d6986733110216126c0e9d61f77bc3fa8d5c1885d641af4be720a5c6c",
+				"dweb:/ipfs/QmfDRjPfeTRKV3GCfGifeyBufuPSDxKrcE6JX3MQD9HUSb"
 			]
 		}
 	},

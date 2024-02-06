@@ -28,21 +28,15 @@
 					},
 					{
 						"indexed": false,
-						"internalType": "uint256",
-						"name": "company_number",
-						"type": "uint256"
+						"internalType": "string",
+						"name": "company_name",
+						"type": "string"
 					},
 					{
 						"indexed": false,
 						"internalType": "string",
 						"name": "plate_number",
 						"type": "string"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "expire_date",
-						"type": "uint256"
 					},
 					{
 						"indexed": false,
@@ -232,11 +226,11 @@
 	},
 	"sources": {
 		"contracts/Approval_Contracts/DataStr.sol": {
-			"keccak256": "0x030e2988cc0ca556cdfe3d2631574f8876ead426372ed2b754528514cd00a728",
+			"keccak256": "0x31ed98a01b251bb050725006be1dfa7f8acbb9d0422f553b4f8cbfe81a7b65b5",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://02e6d9b4255b007f7fc54fdd1babb913c58d58888a0a694669bce7de7ca4a442",
-				"dweb:/ipfs/QmZTPjk6xHrp8YPqyJW9imFZbtMd8S2NJL8npTgZqv6M7c"
+				"bzz-raw://f73a7c3558cb7e8d570b28397e7e755c43ea3741ca4280ca99cc4a484279e149",
+				"dweb:/ipfs/Qmar2HujipZjzpepZJBPFbXtJDcQoncfqF13xdDL5FP3L8"
 			]
 		}
 	},

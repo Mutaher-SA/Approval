@@ -17,7 +17,8 @@ contract sharedStorage is ICommonFunctions {
     Counters.Counter private _nextBusId;
     
     // Events
-    event BusAdded(uint256 indexed id, uint256 model, string vim_number, uint256 company_number, string plate_number, uint256 expireYear, DataStr.BusStatus status, string rejectNote, address owner, address creator);
+    // Correcting the event to match your sharedStorage usage
+    
     event BusStatusUpdated(uint256 indexed id, DataStr.BusStatus newStatus, string note, address updatedBy);
     event BusOwnershipUpdated(uint256 indexed id, address newOwner);
 
@@ -34,27 +35,47 @@ contract sharedStorage is ICommonFunctions {
 
 
     // Function to add a new bus
-    function addBus(uint256 model, string calldata vim_number, uint256 company_number, string calldata plate_number, address creator) external override {
-        uint256 expireYear = model + 10; // Example logic for expireYear
+    function addBus(
+    uint256 model, 
+    string calldata vim_number, 
+    string calldata company_name, 
+    string calldata plate_number, 
+    address creator
+    ) external override {
+    // uint256 expireYear = model + 10; // Removed this line
 
-        buses[nextBusId] = DataStr.BusItem({
-            id: _nextBusId.current(),
-            model: model,
-            vim_number: vim_number,
-            company_number: company_number,
-            plate_number: plate_number,
-            expireYear: expireYear,
-            status: DataStr.BusStatus.New_Bus,
-            rejectNote: "",
-            rejectBy: address(0),
-            owner: creator,
-            creator: creator,
-            nftTokenId: 0 // Assuming NFT token ID will be assigned later
-        });
-        _nextBusId.increment();
-        emit BusAdded(nextBusId, model, vim_number, company_number, plate_number, expireYear, DataStr.BusStatus.Waiting, "", creator, creator);
-        
-    }
+    buses[_nextBusId.current()] = DataStr.BusItem({
+        id: _nextBusId.current(),
+        model: model,
+        vim_number: vim_number,
+        company_name: company_name,
+        plate_number: plate_number,
+        // expireYear: expireYear, // Removed this line
+        status: DataStr.BusStatus.New_Bus,
+        rejectNote: "",
+        rejectBy: address(0),
+        owner: creator,
+        creator: creator,
+        nftTokenId: 0
+    });
+    _nextBusId.increment();
+    
+    emit DataStr.BusCreated(
+        _nextBusId.current() - 1,
+        model,
+        vim_number,
+        company_name,
+        plate_number,
+        // expireYear, // Removed this parameter
+        DataStr.BusStatus.Waiting,
+        "",
+        address(0),
+        creator,
+        creator,
+        0
+    );
+}
+
 
      // Function to get the current status of a bus by its ID
     function getBusStatus(uint256 busId) external view override returns (DataStr.BusStatus) {

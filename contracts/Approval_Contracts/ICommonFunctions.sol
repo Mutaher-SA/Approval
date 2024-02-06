@@ -1,3 +1,4 @@
+
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.8.2 <0.9.0;
 
@@ -8,11 +9,12 @@ interface ICommonFunctions {
     // Function to add a new bus entry
     function addBus(
         uint256 model, 
-        string calldata vim_number, // Using calldata for gas efficiency
-        uint256 company_number, 
-        string calldata plate_number, // Using calldata for gas efficiency
+        string calldata vim_number,
+        string calldata company_name, 
+        string calldata plate_number,
         address creator
     ) external;
+
 
     // Function to update the status of a bus
     function updateBusStatus(

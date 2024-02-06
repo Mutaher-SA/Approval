@@ -1,3 +1,4 @@
+
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.2;
 
@@ -30,7 +31,7 @@ contract Government {
 
     // Function to approve a bus and mint an NFT for it
      function approveBusAndMintNFT(uint256 busId, string memory nftTokenURI) public onlyGovernment returns (uint256) {
-        require(SharedStorage.getBusStatus(busId) == DataStr.BusStatus.ForwardToHTMC, "Bus is not ready to be approved.");
+        require(SharedStorage.getBusStatus(busId) == DataStr.BusStatus.Forward_To_Goverment, "Bus is not ready to be approved.");
 
         uint256 newTokenId = busNftContract.mint(busId, nftTokenURI);
         SharedStorage.updateNft(busId, newTokenId);

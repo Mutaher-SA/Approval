@@ -17,32 +17,34 @@ enum BusStatus {
     uint256 id;
     uint256 model;
     string vim_number;
-    uint256 company_number;
+    string company_name;
     string plate_number;
-    uint256 expireYear;
+    // uint256 expireYear; // This line is removed
     BusStatus status;
     string rejectNote;
     address rejectBy;
     address owner;
     address creator;
-    uint256 nftTokenId; // Added field for the NFT token ID
+    uint256 nftTokenId;
     }
+
 
       //--------------------------Event declaration
     event BusCreated(
-        uint256 indexed id,
-        uint256 model,
-        string vim_number,
-        uint256 company_number,
-        string plate_number,
-        uint256 expire_date,
-        BusStatus status,
-        string rejectNote,
-        address rejectBy,
-        address owner,
-        address creator,
-        uint256 nftTokenId
+    uint256 indexed id,
+    uint256 model,
+    string vim_number,
+    string company_name,
+    string plate_number,
+    // uint256 expire_date, // Removed this parameter
+    BusStatus status,
+    string rejectNote,
+    address rejectBy,
+    address owner,
+    address creator,
+    uint256 nftTokenId
     );
+
 
     event BusStatusUpdated(
         uint256 indexed id, 
