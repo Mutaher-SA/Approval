@@ -12,7 +12,7 @@ contract sharedStorage is ICommonFunctions {
     AddressManager public addressManager;
     // State variables
     mapping(uint256 => DataStr.BusItem) private buses;
-    uint256 private nextBusId = 1; // Assuming bus ID starts from 1
+    //uint256 private nextBusId = 1; // Assuming bus ID starts from 1
     using Counters for Counters.Counter;
     Counters.Counter private _nextBusId;
     
@@ -29,19 +29,23 @@ contract sharedStorage is ICommonFunctions {
     }
 
     modifier onlyGovernment() {
-    require(addressManager.isGovernmentAddressAllowed(msg.sender), "Caller is not authorized as government.");
+    require(addressManager.isGovernmentAddressAllowed(msg.sender), "Government is not authorized as government.");
     _;
 }
 
+      modifier onlyCompany() {
+    require(addressManager.isCompanyAddressAllowed(msg.sender), "Comapny is not authorized as government.");
+    _;
+}
 
     // Function to add a new bus
-    function addBus(
+    function addBus  (
     uint256 model, 
     string calldata vim_number, 
     string calldata company_name, 
     string calldata plate_number, 
     address creator
-    ) external override {
+    ) external override onlyCompany {
     // uint256 expireYear = model + 10; // Removed this line
 
     buses[_nextBusId.current()] = DataStr.BusItem({
@@ -67,13 +71,14 @@ contract sharedStorage is ICommonFunctions {
         company_name,
         plate_number,
         // expireYear, // Removed this parameter
-        DataStr.BusStatus.Waiting,
+        DataStr.BusStatus.New_Bus,
         "",
         address(0),
         creator,
         creator,
         0
     );
+    
 }
 
 

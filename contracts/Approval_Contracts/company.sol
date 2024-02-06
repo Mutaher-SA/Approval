@@ -29,24 +29,24 @@ contract Company {
 
     // Modifier to restrict function access to the company role
     modifier onlyCompany() {
-        require(addressManager.isCompanyAddressAllowed(msg.sender), "Caller is not allowed: Company only.");
+        require(addressManager.isCompanyAddressAllowed(msg.sender), "Company Address is not allowed: Company only.");
         _;
     }
 
      //Modifier to restrict function access to the government role
      modifier onlyGovernment() {
-        require(msg.sender == governmentAddress, "Caller is not allowed: Government only.");
+        require(msg.sender == governmentAddress, "Government Address is not allowed: Government only.");
         _;
     }
 
     // Modifier to restrict function access to the coordinator role
-    modifier onlyCoordinator() {
-        require(msg.sender == coordinatorAddress, "Caller is not allowed: Coordinator only.");
-        _;
-    }
+    //modifier onlyCoordinator() {
+    //    require(msg.sender == coordinatorAddress, "Caller is not allowed: Coordinator only.");
+    //    _;
+    //}
     event GovernmentAddressUpdated(address newAddress);
 
-    function setGovernmentAddress(address _newAddress) public  {
+    function setGovernmentAddress(address _newAddress) public onlyGovernment {
         require(_newAddress != address(0), "New address cannot be zero.");
         governmentAddress = _newAddress;
         emit GovernmentAddressUpdated(_newAddress);
@@ -67,17 +67,17 @@ contract Company {
 }
 
     // Function to update the status of a bus
-    function updateBusStatus(uint256 id, DataStr.BusStatus newStatus, string calldata note) external onlyCoordinator {
+    function updateBusStatus(uint256 id, DataStr.BusStatus newStatus, string calldata note) external onlyCompany {
         sharedStorage.updateBusStatus(id, newStatus, note, msg.sender);
     }
 
     // Function to update the ownership of a bus
-    function updateOwnership(uint256 id, address newOwner) external onlyGovernment {
+    function updateOwnership(uint256 id, address newOwner) external onlyCompany {
         sharedStorage.updateOwnership(id, newOwner);
     }
 
     // Function to get the data of a specific bus by its ID
-    function getBusData(uint256 id) external view returns (DataStr.BusItem memory) {
+    function getBusData(uint256 id) external view onlyCompany returns (DataStr.BusItem memory) {
         return sharedStorage.getBusData(id);
     }
 
