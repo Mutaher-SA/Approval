@@ -17,7 +17,7 @@ enum BusStatus {
     uint256 id;
     uint256 model;
     string vim_number;
-    string company_name;
+    uint256 company_ID;
     string plate_number;
     // uint256 expireYear; // This line is removed
     BusStatus status;
@@ -34,10 +34,10 @@ enum BusStatus {
     uint256 indexed id,
     uint256 model,
     string vim_number,
-    string company_name,
+    uint256 indexed company_ID,
     string plate_number,
     // uint256 expire_date, // Removed this parameter
-    BusStatus status,
+    BusStatus indexed status,
     string rejectNote,
     address rejectBy,
     address owner,
@@ -48,14 +48,12 @@ enum BusStatus {
 
     event BusStatusUpdated(
         uint256 indexed id, 
-        BusStatus newStatus, 
+        BusStatus indexed newStatus, 
         string note, 
         address updatedBy);
     
+    
     event OwnershipUpdated(uint256 indexed busId, address indexed newOwner);
-
-    event NftTokenIdUpdated(uint256 busId, uint256 nftTokenId);
-
     event BusRejected(uint256 indexed id, string reason, address rejectedBy);
     event BusNoted(uint256 indexed id, string note, address notedBy);
 

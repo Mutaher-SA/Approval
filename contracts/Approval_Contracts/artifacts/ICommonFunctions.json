@@ -49,9 +49,10 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
-			"addBus(uint256,string,string,string,address)": "e277b532",
+			"addBus(uint256,string,uint256,string,address)": "3c1e8772",
 			"getBusData(uint256)": "f2c24032",
 			"getBusStatus(uint256)": "17c1e71a",
+			"getBusesByCompanyID(uint256)": "a808135b",
 			"updateBusStatus(uint256,uint8,string,address)": "1d0476d4",
 			"updateNft(uint256,uint256)": "6162074c",
 			"updateOwnership(uint256,address)": "cc0266f7"
@@ -71,9 +72,9 @@
 					"type": "string"
 				},
 				{
-					"internalType": "string",
-					"name": "company_name",
-					"type": "string"
+					"internalType": "uint256",
+					"name": "company_ID",
+					"type": "uint256"
 				},
 				{
 					"internalType": "string",
@@ -119,9 +120,9 @@
 							"type": "string"
 						},
 						{
-							"internalType": "string",
-							"name": "company_name",
-							"type": "string"
+							"internalType": "uint256",
+							"name": "company_ID",
+							"type": "uint256"
 						},
 						{
 							"internalType": "string",
@@ -181,6 +182,82 @@
 					"internalType": "enum DataStr.BusStatus",
 					"name": "",
 					"type": "uint8"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "companyID",
+					"type": "uint256"
+				}
+			],
+			"name": "getBusesByCompanyID",
+			"outputs": [
+				{
+					"components": [
+						{
+							"internalType": "uint256",
+							"name": "id",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "model",
+							"type": "uint256"
+						},
+						{
+							"internalType": "string",
+							"name": "vim_number",
+							"type": "string"
+						},
+						{
+							"internalType": "uint256",
+							"name": "company_ID",
+							"type": "uint256"
+						},
+						{
+							"internalType": "string",
+							"name": "plate_number",
+							"type": "string"
+						},
+						{
+							"internalType": "enum DataStr.BusStatus",
+							"name": "status",
+							"type": "uint8"
+						},
+						{
+							"internalType": "string",
+							"name": "rejectNote",
+							"type": "string"
+						},
+						{
+							"internalType": "address",
+							"name": "rejectBy",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "owner",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "creator",
+							"type": "address"
+						},
+						{
+							"internalType": "uint256",
+							"name": "nftTokenId",
+							"type": "uint256"
+						}
+					],
+					"internalType": "struct DataStr.BusItem[]",
+					"name": "",
+					"type": "tuple[]"
 				}
 			],
 			"stateMutability": "view",

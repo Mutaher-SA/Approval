@@ -1,5 +1,5 @@
 {
-	"id": "349166c0b3583874ff90c582b816cbb1",
+	"id": "8bf5b757a59f78478de9ca50067d42f9",
 	"_format": "hh-sol-build-info-1",
 	"solcVersion": "0.8.22",
 	"solcLongVersion": "0.8.22+commit.4fc1097e",
@@ -7,10 +7,10 @@
 		"language": "Solidity",
 		"sources": {
 			"contracts/Approval_Contracts/ICommonFunctions.sol": {
-				"content": "\r\n// SPDX-License-Identifier: GPL-3.0\r\npragma solidity >=0.8.2 <0.9.0;\r\n\r\nimport \"./DataStr.sol\";\r\n\r\ninterface ICommonFunctions {\r\n       \r\n    // Function to add a new bus entry\r\n    function addBus(\r\n        uint256 model, \r\n        string calldata vim_number,\r\n        string calldata company_name, \r\n        string calldata plate_number,\r\n        address creator\r\n    ) external;\r\n\r\n\r\n    // Function to update the status of a bus\r\n    function updateBusStatus(\r\n        uint256 id, \r\n        DataStr.BusStatus newStatus, \r\n        string calldata note, \r\n        address updatedBy\r\n    ) external;\r\n\r\n    // Function to update the ownership of a bus\r\n    function updateOwnership(\r\n        uint256 id, \r\n        address newOwner\r\n    ) external;\r\n\r\n    // Function to get data of a specific bus by its ID\r\n    function getBusData(\r\n        uint256 id\r\n    ) external view returns (DataStr.BusItem memory);\r\n\r\n    function getBusStatus(uint256 busId) external view returns (DataStr.BusStatus);\r\n\r\n    function updateNft(uint256 busId, uint256 nftTokenId) external;\r\n\r\n}\r\n"
+				"content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity >=0.8.2 <0.9.0;\r\n\r\nimport \"./DataStr.sol\";\r\n\r\ninterface ICommonFunctions {\r\n       \r\n    // Function to add a new bus entry\r\n    function addBus(\r\n        uint256 model, \r\n        string calldata vim_number,\r\n        uint256 company_ID, \r\n        string calldata plate_number,\r\n        address creator\r\n    ) external;\r\n\r\n\r\n\r\n    // Function to update the status of a bus\r\n    function updateBusStatus(\r\n        uint256 id, \r\n        DataStr.BusStatus newStatus, \r\n        string calldata note, \r\n        address updatedBy\r\n    ) external;\r\n\r\n    // Function to update the ownership of a bus\r\n    function updateOwnership(\r\n        uint256 id, \r\n        address newOwner\r\n    ) external;\r\n\r\n    // Function to get data of a specific bus by its ID\r\n    function getBusData(\r\n        uint256 id\r\n    ) external view returns (DataStr.BusItem memory);\r\n\r\n    function getBusStatus(uint256 busId) external view returns (DataStr.BusStatus);\r\n    function updateNft(uint256 busId, uint256 nftTokenId) external;\r\n    function getBusesByCompanyID(uint256 companyID) external view returns (DataStr.BusItem[] memory);\r\n\r\n\r\n}\r\n"
 			},
 			"contracts/Approval_Contracts/DataStr.sol": {
-				"content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity >=0.8.2 <0.9.0;\r\n\r\ncontract DataStr{ \r\n\r\nenum BusStatus { \r\n                Waiting, \r\n                Approved, \r\n                Rejected, \r\n                Noted, \r\n                Forward_To_Coordinator, \r\n                Forward_To_Goverment,\r\n                New_Bus\r\n                }\r\n\r\n    struct BusItem {\r\n    uint256 id;\r\n    uint256 model;\r\n    string vim_number;\r\n    string company_name;\r\n    string plate_number;\r\n    // uint256 expireYear; // This line is removed\r\n    BusStatus status;\r\n    string rejectNote;\r\n    address rejectBy;\r\n    address owner;\r\n    address creator;\r\n    uint256 nftTokenId;\r\n    }\r\n\r\n\r\n      //--------------------------Event declaration\r\n    event BusCreated(\r\n    uint256 indexed id,\r\n    uint256 model,\r\n    string vim_number,\r\n    string company_name,\r\n    string plate_number,\r\n    // uint256 expire_date, // Removed this parameter\r\n    BusStatus status,\r\n    string rejectNote,\r\n    address rejectBy,\r\n    address owner,\r\n    address creator,\r\n    uint256 nftTokenId\r\n    );\r\n\r\n\r\n    event BusStatusUpdated(\r\n        uint256 indexed id, \r\n        BusStatus newStatus, \r\n        string note, \r\n        address updatedBy);\r\n    \r\n    event OwnershipUpdated(uint256 indexed busId, address indexed newOwner);\r\n\r\n    event NftTokenIdUpdated(uint256 busId, uint256 nftTokenId);\r\n\r\n    event BusRejected(uint256 indexed id, string reason, address rejectedBy);\r\n    event BusNoted(uint256 indexed id, string note, address notedBy);\r\n\r\n}"
+				"content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity >=0.8.2 <0.9.0;\r\n\r\ncontract DataStr{ \r\n\r\nenum BusStatus { \r\n                Waiting, \r\n                Approved, \r\n                Rejected, \r\n                Noted, \r\n                Forward_To_Coordinator, \r\n                Forward_To_Goverment,\r\n                New_Bus\r\n                }\r\n\r\n    struct BusItem {\r\n    uint256 id;\r\n    uint256 model;\r\n    string vim_number;\r\n    uint256 company_ID;\r\n    string plate_number;\r\n    // uint256 expireYear; // This line is removed\r\n    BusStatus status;\r\n    string rejectNote;\r\n    address rejectBy;\r\n    address owner;\r\n    address creator;\r\n    uint256 nftTokenId;\r\n    }\r\n\r\n\r\n      //--------------------------Event declaration\r\n    event BusCreated(\r\n    uint256 indexed id,\r\n    uint256 model,\r\n    string vim_number,\r\n    uint256 indexed company_ID,\r\n    string plate_number,\r\n    // uint256 expire_date, // Removed this parameter\r\n    BusStatus indexed status,\r\n    string rejectNote,\r\n    address rejectBy,\r\n    address owner,\r\n    address creator,\r\n    uint256 nftTokenId\r\n    );\r\n\r\n\r\n    event BusStatusUpdated(\r\n        uint256 indexed id, \r\n        BusStatus indexed newStatus, \r\n        string note, \r\n        address updatedBy);\r\n    \r\n    \r\n    event OwnershipUpdated(uint256 indexed busId, address indexed newOwner);\r\n    event BusRejected(uint256 indexed id, string reason, address rejectedBy);\r\n    event BusNoted(uint256 indexed id, string note, address notedBy);\r\n\r\n}\r\n"
 			}
 		},
 		"settings": {
@@ -68,10 +68,10 @@
 									"type": "string"
 								},
 								{
-									"indexed": false,
-									"internalType": "string",
-									"name": "company_name",
-									"type": "string"
+									"indexed": true,
+									"internalType": "uint256",
+									"name": "company_ID",
+									"type": "uint256"
 								},
 								{
 									"indexed": false,
@@ -80,7 +80,7 @@
 									"type": "string"
 								},
 								{
-									"indexed": false,
+									"indexed": true,
 									"internalType": "enum DataStr.BusStatus",
 									"name": "status",
 									"type": "uint8"
@@ -179,7 +179,7 @@
 									"type": "uint256"
 								},
 								{
-									"indexed": false,
+									"indexed": true,
 									"internalType": "enum DataStr.BusStatus",
 									"name": "newStatus",
 									"type": "uint8"
@@ -198,25 +198,6 @@
 								}
 							],
 							"name": "BusStatusUpdated",
-							"type": "event"
-						},
-						{
-							"anonymous": false,
-							"inputs": [
-								{
-									"indexed": false,
-									"internalType": "uint256",
-									"name": "busId",
-									"type": "uint256"
-								},
-								{
-									"indexed": false,
-									"internalType": "uint256",
-									"name": "nftTokenId",
-									"type": "uint256"
-								}
-							],
-							"name": "NftTokenIdUpdated",
 							"type": "event"
 						},
 						{
@@ -245,23 +226,23 @@
 						"version": 1
 					},
 					"evm": {
-						"assembly": "    /* \"contracts/Approval_Contracts/DataStr.sol\":72:1531  contract DataStr{ ... */\n  mstore(0x40, 0x80)\n  callvalue\n  dup1\n  iszero\n  tag_1\n  jumpi\n  0x00\n  dup1\n  revert\ntag_1:\n  pop\n  dataSize(sub_0)\n  dup1\n  dataOffset(sub_0)\n  0x00\n  codecopy\n  0x00\n  return\nstop\n\nsub_0: assembly {\n        /* \"contracts/Approval_Contracts/DataStr.sol\":72:1531  contract DataStr{ ... */\n      mstore(0x40, 0x80)\n      0x00\n      dup1\n      revert\n\n    auxdata: 0xa26469706673582212207cfbe4c9a873beeed66dd543dec6436cac0045feede0695d9544b6c2d87afb5864736f6c63430008160033\n}\n",
+						"assembly": "    /* \"contracts/Approval_Contracts/DataStr.sol\":72:1490  contract DataStr{ ... */\n  mstore(0x40, 0x80)\n  callvalue\n  dup1\n  iszero\n  tag_1\n  jumpi\n  0x00\n  dup1\n  revert\ntag_1:\n  pop\n  dataSize(sub_0)\n  dup1\n  dataOffset(sub_0)\n  0x00\n  codecopy\n  0x00\n  return\nstop\n\nsub_0: assembly {\n        /* \"contracts/Approval_Contracts/DataStr.sol\":72:1490  contract DataStr{ ... */\n      mstore(0x40, 0x80)\n      0x00\n      dup1\n      revert\n\n    auxdata: 0xa264697066735822122053aaf75a4eb148bc64e43f59636adce1f70d21c3ba141f8c1ffe6eabf49ecbbf64736f6c63430008160033\n}\n",
 						"bytecode": {
 							"functionDebugData": {},
 							"generatedSources": [],
 							"linkReferences": {},
-							"object": "6080604052348015600e575f80fd5b50603e80601a5f395ff3fe60806040525f80fdfea26469706673582212207cfbe4c9a873beeed66dd543dec6436cac0045feede0695d9544b6c2d87afb5864736f6c63430008160033",
-							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xE JUMPI PUSH0 DUP1 REVERT JUMPDEST POP PUSH1 0x3E DUP1 PUSH1 0x1A PUSH0 CODECOPY PUSH0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 PUSH29 0xFBE4C9A873BEEED66DD543DEC6436CAC0045FEEDE0695D9544B6C2D87A 0xFB PC PUSH5 0x736F6C6343 STOP ADDMOD AND STOP CALLER ",
-							"sourceMap": "72:1459:0:-:0;;;;;;;;;;;;;;;;;;;"
+							"object": "6080604052348015600e575f80fd5b50603e80601a5f395ff3fe60806040525f80fdfea264697066735822122053aaf75a4eb148bc64e43f59636adce1f70d21c3ba141f8c1ffe6eabf49ecbbf64736f6c63430008160033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xE JUMPI PUSH0 DUP1 REVERT JUMPDEST POP PUSH1 0x3E DUP1 PUSH1 0x1A PUSH0 CODECOPY PUSH0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 MSTORE8 0xAA 0xF7 GAS 0x4E 0xB1 BASEFEE 0xBC PUSH5 0xE43F59636A 0xDC 0xE1 0xF7 0xD 0x21 0xC3 0xBA EQ 0x1F DUP13 0x1F INVALID PUSH15 0xABF49ECBBF64736F6C634300081600 CALLER ",
+							"sourceMap": "72:1418:0:-:0;;;;;;;;;;;;;;;;;;;"
 						},
 						"deployedBytecode": {
 							"functionDebugData": {},
 							"generatedSources": [],
 							"immutableReferences": {},
 							"linkReferences": {},
-							"object": "60806040525f80fdfea26469706673582212207cfbe4c9a873beeed66dd543dec6436cac0045feede0695d9544b6c2d87afb5864736f6c63430008160033",
-							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 PUSH29 0xFBE4C9A873BEEED66DD543DEC6436CAC0045FEEDE0695D9544B6C2D87A 0xFB PC PUSH5 0x736F6C6343 STOP ADDMOD AND STOP CALLER ",
-							"sourceMap": "72:1459:0:-:0;;;;;"
+							"object": "60806040525f80fdfea264697066735822122053aaf75a4eb148bc64e43f59636adce1f70d21c3ba141f8c1ffe6eabf49ecbbf64736f6c63430008160033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 MSTORE8 0xAA 0xF7 GAS 0x4E 0xB1 BASEFEE 0xBC PUSH5 0xE43F59636A 0xDC 0xE1 0xF7 0xD 0x21 0xC3 0xBA EQ 0x1F DUP13 0x1F INVALID PUSH15 0xABF49ECBBF64736F6C634300081600 CALLER ",
+							"sourceMap": "72:1418:0:-:0;;;;;"
 						},
 						"gasEstimates": {
 							"creation": {
@@ -274,180 +255,180 @@
 							".code": [
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "PUSH",
 									"source": 0,
 									"value": "80"
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "PUSH",
 									"source": 0,
 									"value": "40"
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "MSTORE",
 									"source": 0
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "CALLVALUE",
 									"source": 0
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "DUP1",
 									"source": 0
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "ISZERO",
 									"source": 0
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "PUSH [tag]",
 									"source": 0,
 									"value": "1"
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "JUMPI",
 									"source": 0
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "PUSH",
 									"source": 0,
 									"value": "0"
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "DUP1",
 									"source": 0
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "REVERT",
 									"source": 0
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "tag",
 									"source": 0,
 									"value": "1"
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "JUMPDEST",
 									"source": 0
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "POP",
 									"source": 0
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "PUSH #[$]",
 									"source": 0,
 									"value": "0000000000000000000000000000000000000000000000000000000000000000"
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "DUP1",
 									"source": 0
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "PUSH [$]",
 									"source": 0,
 									"value": "0000000000000000000000000000000000000000000000000000000000000000"
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "PUSH",
 									"source": 0,
 									"value": "0"
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "CODECOPY",
 									"source": 0
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "PUSH",
 									"source": 0,
 									"value": "0"
 								},
 								{
 									"begin": 72,
-									"end": 1531,
+									"end": 1490,
 									"name": "RETURN",
 									"source": 0
 								}
 							],
 							".data": {
 								"0": {
-									".auxdata": "a26469706673582212207cfbe4c9a873beeed66dd543dec6436cac0045feede0695d9544b6c2d87afb5864736f6c63430008160033",
+									".auxdata": "a264697066735822122053aaf75a4eb148bc64e43f59636adce1f70d21c3ba141f8c1ffe6eabf49ecbbf64736f6c63430008160033",
 									".code": [
 										{
 											"begin": 72,
-											"end": 1531,
+											"end": 1490,
 											"name": "PUSH",
 											"source": 0,
 											"value": "80"
 										},
 										{
 											"begin": 72,
-											"end": 1531,
+											"end": 1490,
 											"name": "PUSH",
 											"source": 0,
 											"value": "40"
 										},
 										{
 											"begin": 72,
-											"end": 1531,
+											"end": 1490,
 											"name": "MSTORE",
 											"source": 0
 										},
 										{
 											"begin": 72,
-											"end": 1531,
+											"end": 1490,
 											"name": "PUSH",
 											"source": 0,
 											"value": "0"
 										},
 										{
 											"begin": 72,
-											"end": 1531,
+											"end": 1490,
 											"name": "DUP1",
 											"source": 0
 										},
 										{
 											"begin": 72,
-											"end": 1531,
+											"end": 1490,
 											"name": "REVERT",
 											"source": 0
 										}
@@ -462,7 +443,7 @@
 						},
 						"methodIdentifiers": {}
 					},
-					"metadata": "{\"compiler\":{\"version\":\"0.8.22+commit.4fc1097e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"model\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"vim_number\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"company_name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"plate_number\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"enum DataStr.BusStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"rejectNote\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"rejectBy\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"nftTokenId\",\"type\":\"uint256\"}],\"name\":\"BusCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"note\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"notedBy\",\"type\":\"address\"}],\"name\":\"BusNoted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"reason\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"rejectedBy\",\"type\":\"address\"}],\"name\":\"BusRejected\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"enum DataStr.BusStatus\",\"name\":\"newStatus\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"note\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"updatedBy\",\"type\":\"address\"}],\"name\":\"BusStatusUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"busId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"nftTokenId\",\"type\":\"uint256\"}],\"name\":\"NftTokenIdUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"busId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipUpdated\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Approval_Contracts/DataStr.sol\":\"DataStr\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Approval_Contracts/DataStr.sol\":{\"keccak256\":\"0x31ed98a01b251bb050725006be1dfa7f8acbb9d0422f553b4f8cbfe81a7b65b5\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://f73a7c3558cb7e8d570b28397e7e755c43ea3741ca4280ca99cc4a484279e149\",\"dweb:/ipfs/Qmar2HujipZjzpepZJBPFbXtJDcQoncfqF13xdDL5FP3L8\"]}},\"version\":1}",
+					"metadata": "{\"compiler\":{\"version\":\"0.8.22+commit.4fc1097e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"model\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"vim_number\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"company_ID\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"plate_number\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"enum DataStr.BusStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"rejectNote\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"rejectBy\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"nftTokenId\",\"type\":\"uint256\"}],\"name\":\"BusCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"note\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"notedBy\",\"type\":\"address\"}],\"name\":\"BusNoted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"reason\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"rejectedBy\",\"type\":\"address\"}],\"name\":\"BusRejected\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"enum DataStr.BusStatus\",\"name\":\"newStatus\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"note\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"updatedBy\",\"type\":\"address\"}],\"name\":\"BusStatusUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"busId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipUpdated\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Approval_Contracts/DataStr.sol\":\"DataStr\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Approval_Contracts/DataStr.sol\":{\"keccak256\":\"0x559af1f694992bd1d87b32c61df2650f2b3832763da5856491b17e854dab340d\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://55e21e0540001409c9399c77a034b2e8709ef030dacca1c418cb5e3159bc24c8\",\"dweb:/ipfs/QmRrunyMFuJJTo9v777xUt3ejYcf7WzLvT967bCPqpM618\"]}},\"version\":1}",
 					"storageLayout": {
 						"storage": [],
 						"types": null
@@ -490,9 +471,9 @@
 									"type": "string"
 								},
 								{
-									"internalType": "string",
-									"name": "company_name",
-									"type": "string"
+									"internalType": "uint256",
+									"name": "company_ID",
+									"type": "uint256"
 								},
 								{
 									"internalType": "string",
@@ -538,9 +519,9 @@
 											"type": "string"
 										},
 										{
-											"internalType": "string",
-											"name": "company_name",
-											"type": "string"
+											"internalType": "uint256",
+											"name": "company_ID",
+											"type": "uint256"
 										},
 										{
 											"internalType": "string",
@@ -600,6 +581,82 @@
 									"internalType": "enum DataStr.BusStatus",
 									"name": "",
 									"type": "uint8"
+								}
+							],
+							"stateMutability": "view",
+							"type": "function"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "companyID",
+									"type": "uint256"
+								}
+							],
+							"name": "getBusesByCompanyID",
+							"outputs": [
+								{
+									"components": [
+										{
+											"internalType": "uint256",
+											"name": "id",
+											"type": "uint256"
+										},
+										{
+											"internalType": "uint256",
+											"name": "model",
+											"type": "uint256"
+										},
+										{
+											"internalType": "string",
+											"name": "vim_number",
+											"type": "string"
+										},
+										{
+											"internalType": "uint256",
+											"name": "company_ID",
+											"type": "uint256"
+										},
+										{
+											"internalType": "string",
+											"name": "plate_number",
+											"type": "string"
+										},
+										{
+											"internalType": "enum DataStr.BusStatus",
+											"name": "status",
+											"type": "uint8"
+										},
+										{
+											"internalType": "string",
+											"name": "rejectNote",
+											"type": "string"
+										},
+										{
+											"internalType": "address",
+											"name": "rejectBy",
+											"type": "address"
+										},
+										{
+											"internalType": "address",
+											"name": "owner",
+											"type": "address"
+										},
+										{
+											"internalType": "address",
+											"name": "creator",
+											"type": "address"
+										},
+										{
+											"internalType": "uint256",
+											"name": "nftTokenId",
+											"type": "uint256"
+										}
+									],
+									"internalType": "struct DataStr.BusItem[]",
+									"name": "",
+									"type": "tuple[]"
 								}
 							],
 							"stateMutability": "view",
@@ -697,15 +754,16 @@
 						"gasEstimates": null,
 						"legacyAssembly": null,
 						"methodIdentifiers": {
-							"addBus(uint256,string,string,string,address)": "e277b532",
+							"addBus(uint256,string,uint256,string,address)": "3c1e8772",
 							"getBusData(uint256)": "f2c24032",
 							"getBusStatus(uint256)": "17c1e71a",
+							"getBusesByCompanyID(uint256)": "a808135b",
 							"updateBusStatus(uint256,uint8,string,address)": "1d0476d4",
 							"updateNft(uint256,uint256)": "6162074c",
 							"updateOwnership(uint256,address)": "cc0266f7"
 						}
 					},
-					"metadata": "{\"compiler\":{\"version\":\"0.8.22+commit.4fc1097e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"model\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"vim_number\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"company_name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"plate_number\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"}],\"name\":\"addBus\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"getBusData\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"model\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"vim_number\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"company_name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"plate_number\",\"type\":\"string\"},{\"internalType\":\"enum DataStr.BusStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"string\",\"name\":\"rejectNote\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"rejectBy\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nftTokenId\",\"type\":\"uint256\"}],\"internalType\":\"struct DataStr.BusItem\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"busId\",\"type\":\"uint256\"}],\"name\":\"getBusStatus\",\"outputs\":[{\"internalType\":\"enum DataStr.BusStatus\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"enum DataStr.BusStatus\",\"name\":\"newStatus\",\"type\":\"uint8\"},{\"internalType\":\"string\",\"name\":\"note\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"updatedBy\",\"type\":\"address\"}],\"name\":\"updateBusStatus\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"busId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nftTokenId\",\"type\":\"uint256\"}],\"name\":\"updateNft\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"updateOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Approval_Contracts/ICommonFunctions.sol\":\"ICommonFunctions\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Approval_Contracts/DataStr.sol\":{\"keccak256\":\"0x31ed98a01b251bb050725006be1dfa7f8acbb9d0422f553b4f8cbfe81a7b65b5\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://f73a7c3558cb7e8d570b28397e7e755c43ea3741ca4280ca99cc4a484279e149\",\"dweb:/ipfs/Qmar2HujipZjzpepZJBPFbXtJDcQoncfqF13xdDL5FP3L8\"]},\"contracts/Approval_Contracts/ICommonFunctions.sol\":{\"keccak256\":\"0xa7402829f826eb720866a69e158fc9b7e14b847525b6784a83bd7b1503f059fa\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://a9bc1d1d6986733110216126c0e9d61f77bc3fa8d5c1885d641af4be720a5c6c\",\"dweb:/ipfs/QmfDRjPfeTRKV3GCfGifeyBufuPSDxKrcE6JX3MQD9HUSb\"]}},\"version\":1}",
+					"metadata": "{\"compiler\":{\"version\":\"0.8.22+commit.4fc1097e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"model\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"vim_number\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"company_ID\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"plate_number\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"}],\"name\":\"addBus\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"getBusData\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"model\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"vim_number\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"company_ID\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"plate_number\",\"type\":\"string\"},{\"internalType\":\"enum DataStr.BusStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"string\",\"name\":\"rejectNote\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"rejectBy\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nftTokenId\",\"type\":\"uint256\"}],\"internalType\":\"struct DataStr.BusItem\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"busId\",\"type\":\"uint256\"}],\"name\":\"getBusStatus\",\"outputs\":[{\"internalType\":\"enum DataStr.BusStatus\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"companyID\",\"type\":\"uint256\"}],\"name\":\"getBusesByCompanyID\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"model\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"vim_number\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"company_ID\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"plate_number\",\"type\":\"string\"},{\"internalType\":\"enum DataStr.BusStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"string\",\"name\":\"rejectNote\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"rejectBy\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nftTokenId\",\"type\":\"uint256\"}],\"internalType\":\"struct DataStr.BusItem[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"enum DataStr.BusStatus\",\"name\":\"newStatus\",\"type\":\"uint8\"},{\"internalType\":\"string\",\"name\":\"note\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"updatedBy\",\"type\":\"address\"}],\"name\":\"updateBusStatus\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"busId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nftTokenId\",\"type\":\"uint256\"}],\"name\":\"updateNft\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"updateOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Approval_Contracts/ICommonFunctions.sol\":\"ICommonFunctions\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Approval_Contracts/DataStr.sol\":{\"keccak256\":\"0x559af1f694992bd1d87b32c61df2650f2b3832763da5856491b17e854dab340d\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://55e21e0540001409c9399c77a034b2e8709ef030dacca1c418cb5e3159bc24c8\",\"dweb:/ipfs/QmRrunyMFuJJTo9v777xUt3ejYcf7WzLvT967bCPqpM618\"]},\"contracts/Approval_Contracts/ICommonFunctions.sol\":{\"keccak256\":\"0x0b2decc3392f4989c0c1287f931f09c389e833fdc43f70530847d383e86c0563\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://4237aaf4210da18cb7bc90726164fbaa2d9ef3d9aed904daf5c70acbc3d80c13\",\"dweb:/ipfs/QmPoiFX91cJ1FrYUrjC45LQwwYCEyKZ9gEaANt8jqEhB5o\"]}},\"version\":1}",
 					"storageLayout": {
 						"storage": [],
 						"types": null
@@ -724,10 +782,10 @@
 					"absolutePath": "contracts/Approval_Contracts/DataStr.sol",
 					"exportedSymbols": {
 						"DataStr": [
-							98
+							92
 						]
 					},
-					"id": 99,
+					"id": 93,
 					"license": "GPL-3.0",
 					"nodeType": "SourceUnit",
 					"nodes": [
@@ -752,9 +810,9 @@
 							"contractDependencies": [],
 							"contractKind": "contract",
 							"fullyImplemented": true,
-							"id": 98,
+							"id": 92,
 							"linearizedBaseContracts": [
-								98
+								92
 							],
 							"name": "DataStr",
 							"nameLocation": "81:7:0",
@@ -908,25 +966,25 @@
 											"constant": false,
 											"id": 17,
 											"mutability": "mutable",
-											"name": "company_name",
-											"nameLocation": "442:12:0",
+											"name": "company_ID",
+											"nameLocation": "443:10:0",
 											"nodeType": "VariableDeclaration",
 											"scope": 33,
-											"src": "435:19:0",
+											"src": "435:18:0",
 											"stateVariable": false,
 											"storageLocation": "default",
 											"typeDescriptions": {
-												"typeIdentifier": "t_string_storage_ptr",
-												"typeString": "string"
+												"typeIdentifier": "t_uint256",
+												"typeString": "uint256"
 											},
 											"typeName": {
 												"id": 16,
-												"name": "string",
+												"name": "uint256",
 												"nodeType": "ElementaryTypeName",
-												"src": "435:6:0",
+												"src": "435:7:0",
 												"typeDescriptions": {
-													"typeIdentifier": "t_string_storage_ptr",
-													"typeString": "string"
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
 												}
 											},
 											"visibility": "internal"
@@ -936,10 +994,10 @@
 											"id": 19,
 											"mutability": "mutable",
 											"name": "plate_number",
-											"nameLocation": "468:12:0",
+											"nameLocation": "467:12:0",
 											"nodeType": "VariableDeclaration",
 											"scope": 33,
-											"src": "461:19:0",
+											"src": "460:19:0",
 											"stateVariable": false,
 											"storageLocation": "default",
 											"typeDescriptions": {
@@ -950,7 +1008,7 @@
 												"id": 18,
 												"name": "string",
 												"nodeType": "ElementaryTypeName",
-												"src": "461:6:0",
+												"src": "460:6:0",
 												"typeDescriptions": {
 													"typeIdentifier": "t_string_storage_ptr",
 													"typeString": "string"
@@ -963,10 +1021,10 @@
 											"id": 22,
 											"mutability": "mutable",
 											"name": "status",
-											"nameLocation": "549:6:0",
+											"nameLocation": "548:6:0",
 											"nodeType": "VariableDeclaration",
 											"scope": 33,
-											"src": "539:16:0",
+											"src": "538:16:0",
 											"stateVariable": false,
 											"storageLocation": "default",
 											"typeDescriptions": {
@@ -980,14 +1038,14 @@
 													"id": 20,
 													"name": "BusStatus",
 													"nameLocations": [
-														"539:9:0"
+														"538:9:0"
 													],
 													"nodeType": "IdentifierPath",
 													"referencedDeclaration": 9,
-													"src": "539:9:0"
+													"src": "538:9:0"
 												},
 												"referencedDeclaration": 9,
-												"src": "539:9:0",
+												"src": "538:9:0",
 												"typeDescriptions": {
 													"typeIdentifier": "t_enum$_BusStatus_$9",
 													"typeString": "enum DataStr.BusStatus"
@@ -1000,10 +1058,10 @@
 											"id": 24,
 											"mutability": "mutable",
 											"name": "rejectNote",
-											"nameLocation": "569:10:0",
+											"nameLocation": "568:10:0",
 											"nodeType": "VariableDeclaration",
 											"scope": 33,
-											"src": "562:17:0",
+											"src": "561:17:0",
 											"stateVariable": false,
 											"storageLocation": "default",
 											"typeDescriptions": {
@@ -1014,7 +1072,7 @@
 												"id": 23,
 												"name": "string",
 												"nodeType": "ElementaryTypeName",
-												"src": "562:6:0",
+												"src": "561:6:0",
 												"typeDescriptions": {
 													"typeIdentifier": "t_string_storage_ptr",
 													"typeString": "string"
@@ -1027,10 +1085,10 @@
 											"id": 26,
 											"mutability": "mutable",
 											"name": "rejectBy",
-											"nameLocation": "594:8:0",
+											"nameLocation": "593:8:0",
 											"nodeType": "VariableDeclaration",
 											"scope": 33,
-											"src": "586:16:0",
+											"src": "585:16:0",
 											"stateVariable": false,
 											"storageLocation": "default",
 											"typeDescriptions": {
@@ -1041,7 +1099,7 @@
 												"id": 25,
 												"name": "address",
 												"nodeType": "ElementaryTypeName",
-												"src": "586:7:0",
+												"src": "585:7:0",
 												"stateMutability": "nonpayable",
 												"typeDescriptions": {
 													"typeIdentifier": "t_address",
@@ -1055,10 +1113,10 @@
 											"id": 28,
 											"mutability": "mutable",
 											"name": "owner",
-											"nameLocation": "617:5:0",
+											"nameLocation": "616:5:0",
 											"nodeType": "VariableDeclaration",
 											"scope": 33,
-											"src": "609:13:0",
+											"src": "608:13:0",
 											"stateVariable": false,
 											"storageLocation": "default",
 											"typeDescriptions": {
@@ -1069,7 +1127,7 @@
 												"id": 27,
 												"name": "address",
 												"nodeType": "ElementaryTypeName",
-												"src": "609:7:0",
+												"src": "608:7:0",
 												"stateMutability": "nonpayable",
 												"typeDescriptions": {
 													"typeIdentifier": "t_address",
@@ -1083,10 +1141,10 @@
 											"id": 30,
 											"mutability": "mutable",
 											"name": "creator",
-											"nameLocation": "637:7:0",
+											"nameLocation": "636:7:0",
 											"nodeType": "VariableDeclaration",
 											"scope": 33,
-											"src": "629:15:0",
+											"src": "628:15:0",
 											"stateVariable": false,
 											"storageLocation": "default",
 											"typeDescriptions": {
@@ -1097,7 +1155,7 @@
 												"id": 29,
 												"name": "address",
 												"nodeType": "ElementaryTypeName",
-												"src": "629:7:0",
+												"src": "628:7:0",
 												"stateMutability": "nonpayable",
 												"typeDescriptions": {
 													"typeIdentifier": "t_address",
@@ -1111,10 +1169,10 @@
 											"id": 32,
 											"mutability": "mutable",
 											"name": "nftTokenId",
-											"nameLocation": "659:10:0",
+											"nameLocation": "658:10:0",
 											"nodeType": "VariableDeclaration",
 											"scope": 33,
-											"src": "651:18:0",
+											"src": "650:18:0",
 											"stateVariable": false,
 											"storageLocation": "default",
 											"typeDescriptions": {
@@ -1125,7 +1183,7 @@
 												"id": 31,
 												"name": "uint256",
 												"nodeType": "ElementaryTypeName",
-												"src": "651:7:0",
+												"src": "650:7:0",
 												"typeDescriptions": {
 													"typeIdentifier": "t_uint256",
 													"typeString": "uint256"
@@ -1137,16 +1195,16 @@
 									"name": "BusItem",
 									"nameLocation": "359:7:0",
 									"nodeType": "StructDefinition",
-									"scope": 98,
-									"src": "352:325:0",
+									"scope": 92,
+									"src": "352:324:0",
 									"visibility": "public"
 								},
 								{
 									"anonymous": false,
-									"eventSelector": "55751f351687bbd673dc65cc31deb9790701e5b214d7987febf1b8a48bcf6d5f",
+									"eventSelector": "e5e5008647cfeca8fc7aff626b87e8d5bfe90d172b86545be3c31f3c4680b7c4",
 									"id": 58,
 									"name": "BusCreated",
-									"nameLocation": "746:10:0",
+									"nameLocation": "745:10:0",
 									"nodeType": "EventDefinition",
 									"parameters": {
 										"id": 57,
@@ -1158,10 +1216,10 @@
 												"indexed": true,
 												"mutability": "mutable",
 												"name": "id",
-												"nameLocation": "779:2:0",
+												"nameLocation": "778:2:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 58,
-												"src": "763:18:0",
+												"src": "762:18:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1172,7 +1230,7 @@
 													"id": 34,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "763:7:0",
+													"src": "762:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -1186,10 +1244,10 @@
 												"indexed": false,
 												"mutability": "mutable",
 												"name": "model",
-												"nameLocation": "796:5:0",
+												"nameLocation": "795:5:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 58,
-												"src": "788:13:0",
+												"src": "787:13:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1200,7 +1258,7 @@
 													"id": 36,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "788:7:0",
+													"src": "787:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -1214,10 +1272,10 @@
 												"indexed": false,
 												"mutability": "mutable",
 												"name": "vim_number",
-												"nameLocation": "815:10:0",
+												"nameLocation": "814:10:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 58,
-												"src": "808:17:0",
+												"src": "807:17:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1228,7 +1286,7 @@
 													"id": 38,
 													"name": "string",
 													"nodeType": "ElementaryTypeName",
-													"src": "808:6:0",
+													"src": "807:6:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_string_storage_ptr",
 														"typeString": "string"
@@ -1239,27 +1297,27 @@
 											{
 												"constant": false,
 												"id": 41,
-												"indexed": false,
+												"indexed": true,
 												"mutability": "mutable",
-												"name": "company_name",
-												"nameLocation": "839:12:0",
+												"name": "company_ID",
+												"nameLocation": "847:10:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 58,
-												"src": "832:19:0",
+												"src": "831:26:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
-													"typeIdentifier": "t_string_memory_ptr",
-													"typeString": "string"
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
 												},
 												"typeName": {
 													"id": 40,
-													"name": "string",
+													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "832:6:0",
+													"src": "831:7:0",
 													"typeDescriptions": {
-														"typeIdentifier": "t_string_storage_ptr",
-														"typeString": "string"
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
 													}
 												},
 												"visibility": "internal"
@@ -1270,10 +1328,10 @@
 												"indexed": false,
 												"mutability": "mutable",
 												"name": "plate_number",
-												"nameLocation": "865:12:0",
+												"nameLocation": "871:12:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 58,
-												"src": "858:19:0",
+												"src": "864:19:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1284,7 +1342,7 @@
 													"id": 42,
 													"name": "string",
 													"nodeType": "ElementaryTypeName",
-													"src": "858:6:0",
+													"src": "864:6:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_string_storage_ptr",
 														"typeString": "string"
@@ -1295,13 +1353,13 @@
 											{
 												"constant": false,
 												"id": 46,
-												"indexed": false,
+												"indexed": true,
 												"mutability": "mutable",
 												"name": "status",
-												"nameLocation": "949:6:0",
+												"nameLocation": "963:6:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 58,
-												"src": "939:16:0",
+												"src": "945:24:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1315,14 +1373,14 @@
 														"id": 44,
 														"name": "BusStatus",
 														"nameLocations": [
-															"939:9:0"
+															"945:9:0"
 														],
 														"nodeType": "IdentifierPath",
 														"referencedDeclaration": 9,
-														"src": "939:9:0"
+														"src": "945:9:0"
 													},
 													"referencedDeclaration": 9,
-													"src": "939:9:0",
+													"src": "945:9:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_enum$_BusStatus_$9",
 														"typeString": "enum DataStr.BusStatus"
@@ -1336,10 +1394,10 @@
 												"indexed": false,
 												"mutability": "mutable",
 												"name": "rejectNote",
-												"nameLocation": "969:10:0",
+												"nameLocation": "983:10:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 58,
-												"src": "962:17:0",
+												"src": "976:17:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1350,7 +1408,7 @@
 													"id": 47,
 													"name": "string",
 													"nodeType": "ElementaryTypeName",
-													"src": "962:6:0",
+													"src": "976:6:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_string_storage_ptr",
 														"typeString": "string"
@@ -1364,10 +1422,10 @@
 												"indexed": false,
 												"mutability": "mutable",
 												"name": "rejectBy",
-												"nameLocation": "994:8:0",
+												"nameLocation": "1008:8:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 58,
-												"src": "986:16:0",
+												"src": "1000:16:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1378,7 +1436,7 @@
 													"id": 49,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "986:7:0",
+													"src": "1000:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -1393,10 +1451,10 @@
 												"indexed": false,
 												"mutability": "mutable",
 												"name": "owner",
-												"nameLocation": "1017:5:0",
+												"nameLocation": "1031:5:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 58,
-												"src": "1009:13:0",
+												"src": "1023:13:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1407,7 +1465,7 @@
 													"id": 51,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1009:7:0",
+													"src": "1023:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -1422,10 +1480,10 @@
 												"indexed": false,
 												"mutability": "mutable",
 												"name": "creator",
-												"nameLocation": "1037:7:0",
+												"nameLocation": "1051:7:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 58,
-												"src": "1029:15:0",
+												"src": "1043:15:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1436,7 +1494,7 @@
 													"id": 53,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1029:7:0",
+													"src": "1043:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -1451,10 +1509,10 @@
 												"indexed": false,
 												"mutability": "mutable",
 												"name": "nftTokenId",
-												"nameLocation": "1059:10:0",
+												"nameLocation": "1073:10:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 58,
-												"src": "1051:18:0",
+												"src": "1065:18:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1465,7 +1523,7 @@
 													"id": 55,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "1051:7:0",
+													"src": "1065:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -1474,16 +1532,16 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "756:320:0"
+										"src": "755:335:0"
 									},
-									"src": "740:337:0"
+									"src": "739:352:0"
 								},
 								{
 									"anonymous": false,
 									"eventSelector": "dad1eb2f26e1deae81185f40d91508b624e27982264501b3328ce68b7a929b1f",
 									"id": 69,
 									"name": "BusStatusUpdated",
-									"nameLocation": "1093:16:0",
+									"nameLocation": "1107:16:0",
 									"nodeType": "EventDefinition",
 									"parameters": {
 										"id": 68,
@@ -1495,10 +1553,10 @@
 												"indexed": true,
 												"mutability": "mutable",
 												"name": "id",
-												"nameLocation": "1136:2:0",
+												"nameLocation": "1150:2:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 69,
-												"src": "1120:18:0",
+												"src": "1134:18:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1509,7 +1567,7 @@
 													"id": 59,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "1120:7:0",
+													"src": "1134:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -1520,13 +1578,13 @@
 											{
 												"constant": false,
 												"id": 63,
-												"indexed": false,
+												"indexed": true,
 												"mutability": "mutable",
 												"name": "newStatus",
-												"nameLocation": "1160:9:0",
+												"nameLocation": "1182:9:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 69,
-												"src": "1150:19:0",
+												"src": "1164:27:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1540,14 +1598,14 @@
 														"id": 61,
 														"name": "BusStatus",
 														"nameLocations": [
-															"1150:9:0"
+															"1164:9:0"
 														],
 														"nodeType": "IdentifierPath",
 														"referencedDeclaration": 9,
-														"src": "1150:9:0"
+														"src": "1164:9:0"
 													},
 													"referencedDeclaration": 9,
-													"src": "1150:9:0",
+													"src": "1164:9:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_enum$_BusStatus_$9",
 														"typeString": "enum DataStr.BusStatus"
@@ -1561,10 +1619,10 @@
 												"indexed": false,
 												"mutability": "mutable",
 												"name": "note",
-												"nameLocation": "1188:4:0",
+												"nameLocation": "1210:4:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 69,
-												"src": "1181:11:0",
+												"src": "1203:11:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1575,7 +1633,7 @@
 													"id": 64,
 													"name": "string",
 													"nodeType": "ElementaryTypeName",
-													"src": "1181:6:0",
+													"src": "1203:6:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_string_storage_ptr",
 														"typeString": "string"
@@ -1589,10 +1647,10 @@
 												"indexed": false,
 												"mutability": "mutable",
 												"name": "updatedBy",
-												"nameLocation": "1212:9:0",
+												"nameLocation": "1234:9:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 69,
-												"src": "1204:17:0",
+												"src": "1226:17:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1603,7 +1661,7 @@
 													"id": 66,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1204:7:0",
+													"src": "1226:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -1613,16 +1671,16 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "1109:113:0"
+										"src": "1123:121:0"
 									},
-									"src": "1087:136:0"
+									"src": "1101:144:0"
 								},
 								{
 									"anonymous": false,
 									"eventSelector": "17f6791f79c251dfe73501956852b1099624d6a4c5ce9744ad98825c5b8dd91a",
 									"id": 75,
 									"name": "OwnershipUpdated",
-									"nameLocation": "1241:16:0",
+									"nameLocation": "1269:16:0",
 									"nodeType": "EventDefinition",
 									"parameters": {
 										"id": 74,
@@ -1634,10 +1692,10 @@
 												"indexed": true,
 												"mutability": "mutable",
 												"name": "busId",
-												"nameLocation": "1274:5:0",
+												"nameLocation": "1302:5:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 75,
-												"src": "1258:21:0",
+												"src": "1286:21:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1648,7 +1706,7 @@
 													"id": 70,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "1258:7:0",
+													"src": "1286:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -1662,10 +1720,10 @@
 												"indexed": true,
 												"mutability": "mutable",
 												"name": "newOwner",
-												"nameLocation": "1297:8:0",
+												"nameLocation": "1325:8:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 75,
-												"src": "1281:24:0",
+												"src": "1309:24:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1676,7 +1734,7 @@
 													"id": 72,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1281:7:0",
+													"src": "1309:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -1686,31 +1744,31 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "1257:49:0"
+										"src": "1285:49:0"
 									},
-									"src": "1235:72:0"
+									"src": "1263:72:0"
 								},
 								{
 									"anonymous": false,
-									"eventSelector": "2360bfa7a3154a307ef95bd0ce61c1e8e734578c9829efd159da5f46ae0e2a26",
-									"id": 81,
-									"name": "NftTokenIdUpdated",
-									"nameLocation": "1321:17:0",
+									"eventSelector": "d60eb1dd32bc20e12605f67590e8a9836cdf828af9bcef90fdbdc78a33a86c5e",
+									"id": 83,
+									"name": "BusRejected",
+									"nameLocation": "1347:11:0",
 									"nodeType": "EventDefinition",
 									"parameters": {
-										"id": 80,
+										"id": 82,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
 												"id": 77,
-												"indexed": false,
+												"indexed": true,
 												"mutability": "mutable",
-												"name": "busId",
-												"nameLocation": "1347:5:0",
+												"name": "id",
+												"nameLocation": "1375:2:0",
 												"nodeType": "VariableDeclaration",
-												"scope": 81,
-												"src": "1339:13:0",
+												"scope": 83,
+												"src": "1359:18:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1721,7 +1779,7 @@
 													"id": 76,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "1339:7:0",
+													"src": "1359:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -1734,83 +1792,11 @@
 												"id": 79,
 												"indexed": false,
 												"mutability": "mutable",
-												"name": "nftTokenId",
-												"nameLocation": "1362:10:0",
-												"nodeType": "VariableDeclaration",
-												"scope": 81,
-												"src": "1354:18:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_uint256",
-													"typeString": "uint256"
-												},
-												"typeName": {
-													"id": 78,
-													"name": "uint256",
-													"nodeType": "ElementaryTypeName",
-													"src": "1354:7:0",
-													"typeDescriptions": {
-														"typeIdentifier": "t_uint256",
-														"typeString": "uint256"
-													}
-												},
-												"visibility": "internal"
-											}
-										],
-										"src": "1338:35:0"
-									},
-									"src": "1315:59:0"
-								},
-								{
-									"anonymous": false,
-									"eventSelector": "d60eb1dd32bc20e12605f67590e8a9836cdf828af9bcef90fdbdc78a33a86c5e",
-									"id": 89,
-									"name": "BusRejected",
-									"nameLocation": "1388:11:0",
-									"nodeType": "EventDefinition",
-									"parameters": {
-										"id": 88,
-										"nodeType": "ParameterList",
-										"parameters": [
-											{
-												"constant": false,
-												"id": 83,
-												"indexed": true,
-												"mutability": "mutable",
-												"name": "id",
-												"nameLocation": "1416:2:0",
-												"nodeType": "VariableDeclaration",
-												"scope": 89,
-												"src": "1400:18:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_uint256",
-													"typeString": "uint256"
-												},
-												"typeName": {
-													"id": 82,
-													"name": "uint256",
-													"nodeType": "ElementaryTypeName",
-													"src": "1400:7:0",
-													"typeDescriptions": {
-														"typeIdentifier": "t_uint256",
-														"typeString": "uint256"
-													}
-												},
-												"visibility": "internal"
-											},
-											{
-												"constant": false,
-												"id": 85,
-												"indexed": false,
-												"mutability": "mutable",
 												"name": "reason",
-												"nameLocation": "1427:6:0",
+												"nameLocation": "1386:6:0",
 												"nodeType": "VariableDeclaration",
-												"scope": 89,
-												"src": "1420:13:0",
+												"scope": 83,
+												"src": "1379:13:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1818,13 +1804,86 @@
 													"typeString": "string"
 												},
 												"typeName": {
-													"id": 84,
+													"id": 78,
 													"name": "string",
 													"nodeType": "ElementaryTypeName",
-													"src": "1420:6:0",
+													"src": "1379:6:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_string_storage_ptr",
 														"typeString": "string"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 81,
+												"indexed": false,
+												"mutability": "mutable",
+												"name": "rejectedBy",
+												"nameLocation": "1402:10:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 83,
+												"src": "1394:18:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 80,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "1394:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1358:55:0"
+									},
+									"src": "1341:73:0"
+								},
+								{
+									"anonymous": false,
+									"eventSelector": "d520d4d1f28ea609ffd806d3a294ad1f71b5e3fd3ef2b4f4a0eeaeea167f5f48",
+									"id": 91,
+									"name": "BusNoted",
+									"nameLocation": "1426:8:0",
+									"nodeType": "EventDefinition",
+									"parameters": {
+										"id": 90,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 85,
+												"indexed": true,
+												"mutability": "mutable",
+												"name": "id",
+												"nameLocation": "1451:2:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 91,
+												"src": "1435:18:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 84,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "1435:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
 													}
 												},
 												"visibility": "internal"
@@ -1834,84 +1893,11 @@
 												"id": 87,
 												"indexed": false,
 												"mutability": "mutable",
-												"name": "rejectedBy",
-												"nameLocation": "1443:10:0",
-												"nodeType": "VariableDeclaration",
-												"scope": 89,
-												"src": "1435:18:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_address",
-													"typeString": "address"
-												},
-												"typeName": {
-													"id": 86,
-													"name": "address",
-													"nodeType": "ElementaryTypeName",
-													"src": "1435:7:0",
-													"stateMutability": "nonpayable",
-													"typeDescriptions": {
-														"typeIdentifier": "t_address",
-														"typeString": "address"
-													}
-												},
-												"visibility": "internal"
-											}
-										],
-										"src": "1399:55:0"
-									},
-									"src": "1382:73:0"
-								},
-								{
-									"anonymous": false,
-									"eventSelector": "d520d4d1f28ea609ffd806d3a294ad1f71b5e3fd3ef2b4f4a0eeaeea167f5f48",
-									"id": 97,
-									"name": "BusNoted",
-									"nameLocation": "1467:8:0",
-									"nodeType": "EventDefinition",
-									"parameters": {
-										"id": 96,
-										"nodeType": "ParameterList",
-										"parameters": [
-											{
-												"constant": false,
-												"id": 91,
-												"indexed": true,
-												"mutability": "mutable",
-												"name": "id",
-												"nameLocation": "1492:2:0",
-												"nodeType": "VariableDeclaration",
-												"scope": 97,
-												"src": "1476:18:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_uint256",
-													"typeString": "uint256"
-												},
-												"typeName": {
-													"id": 90,
-													"name": "uint256",
-													"nodeType": "ElementaryTypeName",
-													"src": "1476:7:0",
-													"typeDescriptions": {
-														"typeIdentifier": "t_uint256",
-														"typeString": "uint256"
-													}
-												},
-												"visibility": "internal"
-											},
-											{
-												"constant": false,
-												"id": 93,
-												"indexed": false,
-												"mutability": "mutable",
 												"name": "note",
-												"nameLocation": "1503:4:0",
+												"nameLocation": "1462:4:0",
 												"nodeType": "VariableDeclaration",
-												"scope": 97,
-												"src": "1496:11:0",
+												"scope": 91,
+												"src": "1455:11:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1919,10 +1905,10 @@
 													"typeString": "string"
 												},
 												"typeName": {
-													"id": 92,
+													"id": 86,
 													"name": "string",
 													"nodeType": "ElementaryTypeName",
-													"src": "1496:6:0",
+													"src": "1455:6:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_string_storage_ptr",
 														"typeString": "string"
@@ -1932,14 +1918,14 @@
 											},
 											{
 												"constant": false,
-												"id": 95,
+												"id": 89,
 												"indexed": false,
 												"mutability": "mutable",
 												"name": "notedBy",
-												"nameLocation": "1517:7:0",
+												"nameLocation": "1476:7:0",
 												"nodeType": "VariableDeclaration",
-												"scope": 97,
-												"src": "1509:15:0",
+												"scope": 91,
+												"src": "1468:15:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -1947,10 +1933,10 @@
 													"typeString": "address"
 												},
 												"typeName": {
-													"id": 94,
+													"id": 88,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1509:7:0",
+													"src": "1468:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -1960,25 +1946,24 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "1475:50:0"
+										"src": "1434:50:0"
 									},
-									"src": "1461:65:0"
+									"src": "1420:65:0"
 								}
 							],
-							"scope": 99,
-							"src": "72:1459:0",
+							"scope": 93,
+							"src": "72:1418:0",
 							"usedErrors": [],
 							"usedEvents": [
 								58,
 								69,
 								75,
-								81,
-								89,
-								97
+								83,
+								91
 							]
 						}
 					],
-					"src": "37:1494:0"
+					"src": "37:1455:0"
 				},
 				"id": 0
 			},
@@ -1987,18 +1972,18 @@
 					"absolutePath": "contracts/Approval_Contracts/ICommonFunctions.sol",
 					"exportedSymbols": {
 						"DataStr": [
-							98
+							92
 						],
 						"ICommonFunctions": [
-							157
+							160
 						]
 					},
-					"id": 158,
+					"id": 161,
 					"license": "GPL-3.0",
 					"nodeType": "SourceUnit",
 					"nodes": [
 						{
-							"id": 100,
+							"id": 94,
 							"literals": [
 								"solidity",
 								">=",
@@ -2009,17 +1994,17 @@
 								".0"
 							],
 							"nodeType": "PragmaDirective",
-							"src": "39:31:1"
+							"src": "37:31:1"
 						},
 						{
 							"absolutePath": "contracts/Approval_Contracts/DataStr.sol",
 							"file": "./DataStr.sol",
-							"id": 101,
+							"id": 95,
 							"nameLocation": "-1:-1:-1",
 							"nodeType": "ImportDirective",
-							"scope": 158,
-							"sourceUnit": 99,
-							"src": "74:23:1",
+							"scope": 161,
+							"sourceUnit": 93,
+							"src": "72:23:1",
 							"symbolAliases": [],
 							"unitAlias": ""
 						},
@@ -2030,36 +2015,36 @@
 							"contractDependencies": [],
 							"contractKind": "interface",
 							"fullyImplemented": false,
-							"id": 157,
+							"id": 160,
 							"linearizedBaseContracts": [
-								157
+								160
 							],
 							"name": "ICommonFunctions",
-							"nameLocation": "111:16:1",
+							"nameLocation": "109:16:1",
 							"nodeType": "ContractDefinition",
 							"nodes": [
 								{
-									"functionSelector": "e277b532",
-									"id": 114,
+									"functionSelector": "3c1e8772",
+									"id": 108,
 									"implemented": false,
 									"kind": "function",
 									"modifiers": [],
 									"name": "addBus",
-									"nameLocation": "193:6:1",
+									"nameLocation": "191:6:1",
 									"nodeType": "FunctionDefinition",
 									"parameters": {
-										"id": 112,
+										"id": 106,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 103,
+												"id": 97,
 												"mutability": "mutable",
 												"name": "model",
-												"nameLocation": "218:5:1",
+												"nameLocation": "216:5:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 114,
-												"src": "210:13:1",
+												"scope": 108,
+												"src": "208:13:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2067,13 +2052,94 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 102,
+													"id": 96,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "210:7:1",
+													"src": "208:7:1",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 99,
+												"mutability": "mutable",
+												"name": "vim_number",
+												"nameLocation": "249:10:1",
+												"nodeType": "VariableDeclaration",
+												"scope": 108,
+												"src": "233:26:1",
+												"stateVariable": false,
+												"storageLocation": "calldata",
+												"typeDescriptions": {
+													"typeIdentifier": "t_string_calldata_ptr",
+													"typeString": "string"
+												},
+												"typeName": {
+													"id": 98,
+													"name": "string",
+													"nodeType": "ElementaryTypeName",
+													"src": "233:6:1",
+													"typeDescriptions": {
+														"typeIdentifier": "t_string_storage_ptr",
+														"typeString": "string"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 101,
+												"mutability": "mutable",
+												"name": "company_ID",
+												"nameLocation": "278:10:1",
+												"nodeType": "VariableDeclaration",
+												"scope": 108,
+												"src": "270:18:1",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 100,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "270:7:1",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 103,
+												"mutability": "mutable",
+												"name": "plate_number",
+												"nameLocation": "316:12:1",
+												"nodeType": "VariableDeclaration",
+												"scope": 108,
+												"src": "300:28:1",
+												"stateVariable": false,
+												"storageLocation": "calldata",
+												"typeDescriptions": {
+													"typeIdentifier": "t_string_calldata_ptr",
+													"typeString": "string"
+												},
+												"typeName": {
+													"id": 102,
+													"name": "string",
+													"nodeType": "ElementaryTypeName",
+													"src": "300:6:1",
+													"typeDescriptions": {
+														"typeIdentifier": "t_string_storage_ptr",
+														"typeString": "string"
 													}
 												},
 												"visibility": "internal"
@@ -2082,92 +2148,11 @@
 												"constant": false,
 												"id": 105,
 												"mutability": "mutable",
-												"name": "vim_number",
-												"nameLocation": "251:10:1",
-												"nodeType": "VariableDeclaration",
-												"scope": 114,
-												"src": "235:26:1",
-												"stateVariable": false,
-												"storageLocation": "calldata",
-												"typeDescriptions": {
-													"typeIdentifier": "t_string_calldata_ptr",
-													"typeString": "string"
-												},
-												"typeName": {
-													"id": 104,
-													"name": "string",
-													"nodeType": "ElementaryTypeName",
-													"src": "235:6:1",
-													"typeDescriptions": {
-														"typeIdentifier": "t_string_storage_ptr",
-														"typeString": "string"
-													}
-												},
-												"visibility": "internal"
-											},
-											{
-												"constant": false,
-												"id": 107,
-												"mutability": "mutable",
-												"name": "company_name",
-												"nameLocation": "288:12:1",
-												"nodeType": "VariableDeclaration",
-												"scope": 114,
-												"src": "272:28:1",
-												"stateVariable": false,
-												"storageLocation": "calldata",
-												"typeDescriptions": {
-													"typeIdentifier": "t_string_calldata_ptr",
-													"typeString": "string"
-												},
-												"typeName": {
-													"id": 106,
-													"name": "string",
-													"nodeType": "ElementaryTypeName",
-													"src": "272:6:1",
-													"typeDescriptions": {
-														"typeIdentifier": "t_string_storage_ptr",
-														"typeString": "string"
-													}
-												},
-												"visibility": "internal"
-											},
-											{
-												"constant": false,
-												"id": 109,
-												"mutability": "mutable",
-												"name": "plate_number",
-												"nameLocation": "328:12:1",
-												"nodeType": "VariableDeclaration",
-												"scope": 114,
-												"src": "312:28:1",
-												"stateVariable": false,
-												"storageLocation": "calldata",
-												"typeDescriptions": {
-													"typeIdentifier": "t_string_calldata_ptr",
-													"typeString": "string"
-												},
-												"typeName": {
-													"id": 108,
-													"name": "string",
-													"nodeType": "ElementaryTypeName",
-													"src": "312:6:1",
-													"typeDescriptions": {
-														"typeIdentifier": "t_string_storage_ptr",
-														"typeString": "string"
-													}
-												},
-												"visibility": "internal"
-											},
-											{
-												"constant": false,
-												"id": 111,
-												"mutability": "mutable",
 												"name": "creator",
-												"nameLocation": "359:7:1",
+												"nameLocation": "347:7:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 114,
-												"src": "351:15:1",
+												"scope": 108,
+												"src": "339:15:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2175,10 +2160,10 @@
 													"typeString": "address"
 												},
 												"typeName": {
-													"id": 110,
+													"id": 104,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "351:7:1",
+													"src": "339:7:1",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -2188,42 +2173,42 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "199:174:1"
+										"src": "197:164:1"
 									},
 									"returnParameters": {
-										"id": 113,
+										"id": 107,
 										"nodeType": "ParameterList",
 										"parameters": [],
-										"src": "382:0:1"
+										"src": "370:0:1"
 									},
-									"scope": 157,
-									"src": "184:199:1",
+									"scope": 160,
+									"src": "182:189:1",
 									"stateMutability": "nonpayable",
 									"virtual": false,
 									"visibility": "external"
 								},
 								{
 									"functionSelector": "1d0476d4",
-									"id": 126,
+									"id": 120,
 									"implemented": false,
 									"kind": "function",
 									"modifiers": [],
 									"name": "updateBusStatus",
-									"nameLocation": "449:15:1",
+									"nameLocation": "439:15:1",
 									"nodeType": "FunctionDefinition",
 									"parameters": {
-										"id": 124,
+										"id": 118,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 116,
+												"id": 110,
 												"mutability": "mutable",
 												"name": "id",
-												"nameLocation": "483:2:1",
+												"nameLocation": "473:2:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 126,
-												"src": "475:10:1",
+												"scope": 120,
+												"src": "465:10:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2231,10 +2216,10 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 115,
+													"id": 109,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "475:7:1",
+													"src": "465:7:1",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -2244,13 +2229,13 @@
 											},
 											{
 												"constant": false,
-												"id": 119,
+												"id": 113,
 												"mutability": "mutable",
 												"name": "newStatus",
-												"nameLocation": "515:9:1",
+												"nameLocation": "505:9:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 126,
-												"src": "497:27:1",
+												"scope": 120,
+												"src": "487:27:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2258,21 +2243,21 @@
 													"typeString": "enum DataStr.BusStatus"
 												},
 												"typeName": {
-													"id": 118,
+													"id": 112,
 													"nodeType": "UserDefinedTypeName",
 													"pathNode": {
-														"id": 117,
+														"id": 111,
 														"name": "DataStr.BusStatus",
 														"nameLocations": [
-															"497:7:1",
-															"505:9:1"
+															"487:7:1",
+															"495:9:1"
 														],
 														"nodeType": "IdentifierPath",
 														"referencedDeclaration": 9,
-														"src": "497:17:1"
+														"src": "487:17:1"
 													},
 													"referencedDeclaration": 9,
-													"src": "497:17:1",
+													"src": "487:17:1",
 													"typeDescriptions": {
 														"typeIdentifier": "t_enum$_BusStatus_$9",
 														"typeString": "enum DataStr.BusStatus"
@@ -2282,13 +2267,13 @@
 											},
 											{
 												"constant": false,
-												"id": 121,
+												"id": 115,
 												"mutability": "mutable",
 												"name": "note",
-												"nameLocation": "552:4:1",
+												"nameLocation": "542:4:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 126,
-												"src": "536:20:1",
+												"scope": 120,
+												"src": "526:20:1",
 												"stateVariable": false,
 												"storageLocation": "calldata",
 												"typeDescriptions": {
@@ -2296,10 +2281,10 @@
 													"typeString": "string"
 												},
 												"typeName": {
-													"id": 120,
+													"id": 114,
 													"name": "string",
 													"nodeType": "ElementaryTypeName",
-													"src": "536:6:1",
+													"src": "526:6:1",
 													"typeDescriptions": {
 														"typeIdentifier": "t_string_storage_ptr",
 														"typeString": "string"
@@ -2309,13 +2294,13 @@
 											},
 											{
 												"constant": false,
-												"id": 123,
+												"id": 117,
 												"mutability": "mutable",
 												"name": "updatedBy",
-												"nameLocation": "576:9:1",
+												"nameLocation": "566:9:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 126,
-												"src": "568:17:1",
+												"scope": 120,
+												"src": "558:17:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2323,10 +2308,10 @@
 													"typeString": "address"
 												},
 												"typeName": {
-													"id": 122,
+													"id": 116,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "568:7:1",
+													"src": "558:7:1",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -2336,42 +2321,42 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "464:128:1"
+										"src": "454:128:1"
 									},
 									"returnParameters": {
-										"id": 125,
+										"id": 119,
 										"nodeType": "ParameterList",
 										"parameters": [],
-										"src": "601:0:1"
+										"src": "591:0:1"
 									},
-									"scope": 157,
-									"src": "440:162:1",
+									"scope": 160,
+									"src": "430:162:1",
 									"stateMutability": "nonpayable",
 									"virtual": false,
 									"visibility": "external"
 								},
 								{
 									"functionSelector": "cc0266f7",
-									"id": 133,
+									"id": 127,
 									"implemented": false,
 									"kind": "function",
 									"modifiers": [],
 									"name": "updateOwnership",
-									"nameLocation": "669:15:1",
+									"nameLocation": "659:15:1",
 									"nodeType": "FunctionDefinition",
 									"parameters": {
-										"id": 131,
+										"id": 125,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 128,
+												"id": 122,
 												"mutability": "mutable",
 												"name": "id",
-												"nameLocation": "703:2:1",
+												"nameLocation": "693:2:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 133,
-												"src": "695:10:1",
+												"scope": 127,
+												"src": "685:10:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2379,10 +2364,10 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 127,
+													"id": 121,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "695:7:1",
+													"src": "685:7:1",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -2392,13 +2377,13 @@
 											},
 											{
 												"constant": false,
-												"id": 130,
+												"id": 124,
 												"mutability": "mutable",
 												"name": "newOwner",
-												"nameLocation": "725:8:1",
+												"nameLocation": "715:8:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 133,
-												"src": "717:16:1",
+												"scope": 127,
+												"src": "707:16:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2406,10 +2391,10 @@
 													"typeString": "address"
 												},
 												"typeName": {
-													"id": 129,
+													"id": 123,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "717:7:1",
+													"src": "707:7:1",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -2419,42 +2404,42 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "684:56:1"
+										"src": "674:56:1"
 									},
 									"returnParameters": {
-										"id": 132,
+										"id": 126,
 										"nodeType": "ParameterList",
 										"parameters": [],
-										"src": "749:0:1"
+										"src": "739:0:1"
 									},
-									"scope": 157,
-									"src": "660:90:1",
+									"scope": 160,
+									"src": "650:90:1",
 									"stateMutability": "nonpayable",
 									"virtual": false,
 									"visibility": "external"
 								},
 								{
 									"functionSelector": "f2c24032",
-									"id": 141,
+									"id": 135,
 									"implemented": false,
 									"kind": "function",
 									"modifiers": [],
 									"name": "getBusData",
-									"nameLocation": "824:10:1",
+									"nameLocation": "814:10:1",
 									"nodeType": "FunctionDefinition",
 									"parameters": {
-										"id": 136,
+										"id": 130,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 135,
+												"id": 129,
 												"mutability": "mutable",
 												"name": "id",
-												"nameLocation": "853:2:1",
+												"nameLocation": "843:2:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 141,
-												"src": "845:10:1",
+												"scope": 135,
+												"src": "835:10:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2462,10 +2447,10 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 134,
+													"id": 128,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "845:7:1",
+													"src": "835:7:1",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -2474,21 +2459,21 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "834:28:1"
+										"src": "824:28:1"
 									},
 									"returnParameters": {
-										"id": 140,
+										"id": 134,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 139,
+												"id": 133,
 												"mutability": "mutable",
 												"name": "",
 												"nameLocation": "-1:-1:-1",
 												"nodeType": "VariableDeclaration",
-												"scope": 141,
-												"src": "886:22:1",
+												"scope": 135,
+												"src": "876:22:1",
 												"stateVariable": false,
 												"storageLocation": "memory",
 												"typeDescriptions": {
@@ -2496,21 +2481,21 @@
 													"typeString": "struct DataStr.BusItem"
 												},
 												"typeName": {
-													"id": 138,
+													"id": 132,
 													"nodeType": "UserDefinedTypeName",
 													"pathNode": {
-														"id": 137,
+														"id": 131,
 														"name": "DataStr.BusItem",
 														"nameLocations": [
-															"886:7:1",
-															"894:7:1"
+															"876:7:1",
+															"884:7:1"
 														],
 														"nodeType": "IdentifierPath",
 														"referencedDeclaration": 33,
-														"src": "886:15:1"
+														"src": "876:15:1"
 													},
 													"referencedDeclaration": 33,
-													"src": "886:15:1",
+													"src": "876:15:1",
 													"typeDescriptions": {
 														"typeIdentifier": "t_struct$_BusItem_$33_storage_ptr",
 														"typeString": "struct DataStr.BusItem"
@@ -2519,36 +2504,36 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "885:24:1"
+										"src": "875:24:1"
 									},
-									"scope": 157,
-									"src": "815:95:1",
+									"scope": 160,
+									"src": "805:95:1",
 									"stateMutability": "view",
 									"virtual": false,
 									"visibility": "external"
 								},
 								{
 									"functionSelector": "17c1e71a",
-									"id": 149,
+									"id": 143,
 									"implemented": false,
 									"kind": "function",
 									"modifiers": [],
 									"name": "getBusStatus",
-									"nameLocation": "927:12:1",
+									"nameLocation": "917:12:1",
 									"nodeType": "FunctionDefinition",
 									"parameters": {
-										"id": 144,
+										"id": 138,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 143,
+												"id": 137,
 												"mutability": "mutable",
 												"name": "busId",
-												"nameLocation": "948:5:1",
+												"nameLocation": "938:5:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 149,
-												"src": "940:13:1",
+												"scope": 143,
+												"src": "930:13:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2556,10 +2541,10 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 142,
+													"id": 136,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "940:7:1",
+													"src": "930:7:1",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -2568,21 +2553,21 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "939:15:1"
+										"src": "929:15:1"
 									},
 									"returnParameters": {
-										"id": 148,
+										"id": 142,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 147,
+												"id": 141,
 												"mutability": "mutable",
 												"name": "",
 												"nameLocation": "-1:-1:-1",
 												"nodeType": "VariableDeclaration",
-												"scope": 149,
-												"src": "978:17:1",
+												"scope": 143,
+												"src": "968:17:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2590,21 +2575,21 @@
 													"typeString": "enum DataStr.BusStatus"
 												},
 												"typeName": {
-													"id": 146,
+													"id": 140,
 													"nodeType": "UserDefinedTypeName",
 													"pathNode": {
-														"id": 145,
+														"id": 139,
 														"name": "DataStr.BusStatus",
 														"nameLocations": [
-															"978:7:1",
-															"986:9:1"
+															"968:7:1",
+															"976:9:1"
 														],
 														"nodeType": "IdentifierPath",
 														"referencedDeclaration": 9,
-														"src": "978:17:1"
+														"src": "968:17:1"
 													},
 													"referencedDeclaration": 9,
-													"src": "978:17:1",
+													"src": "968:17:1",
 													"typeDescriptions": {
 														"typeIdentifier": "t_enum$_BusStatus_$9",
 														"typeString": "enum DataStr.BusStatus"
@@ -2613,36 +2598,36 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "977:19:1"
+										"src": "967:19:1"
 									},
-									"scope": 157,
-									"src": "918:79:1",
+									"scope": 160,
+									"src": "908:79:1",
 									"stateMutability": "view",
 									"virtual": false,
 									"visibility": "external"
 								},
 								{
 									"functionSelector": "6162074c",
-									"id": 156,
+									"id": 150,
 									"implemented": false,
 									"kind": "function",
 									"modifiers": [],
 									"name": "updateNft",
-									"nameLocation": "1014:9:1",
+									"nameLocation": "1002:9:1",
 									"nodeType": "FunctionDefinition",
 									"parameters": {
-										"id": 154,
+										"id": 148,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 151,
+												"id": 145,
 												"mutability": "mutable",
 												"name": "busId",
-												"nameLocation": "1032:5:1",
+												"nameLocation": "1020:5:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 156,
-												"src": "1024:13:1",
+												"scope": 150,
+												"src": "1012:13:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2650,10 +2635,10 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 150,
+													"id": 144,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "1024:7:1",
+													"src": "1012:7:1",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -2663,13 +2648,13 @@
 											},
 											{
 												"constant": false,
-												"id": 153,
+												"id": 147,
 												"mutability": "mutable",
 												"name": "nftTokenId",
-												"nameLocation": "1047:10:1",
+												"nameLocation": "1035:10:1",
 												"nodeType": "VariableDeclaration",
-												"scope": 156,
-												"src": "1039:18:1",
+												"scope": 150,
+												"src": "1027:18:1",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -2677,10 +2662,10 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 152,
+													"id": 146,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "1039:7:1",
+													"src": "1027:7:1",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -2689,28 +2674,131 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "1023:35:1"
+										"src": "1011:35:1"
 									},
 									"returnParameters": {
-										"id": 155,
+										"id": 149,
 										"nodeType": "ParameterList",
 										"parameters": [],
-										"src": "1067:0:1"
+										"src": "1055:0:1"
 									},
-									"scope": 157,
-									"src": "1005:63:1",
+									"scope": 160,
+									"src": "993:63:1",
 									"stateMutability": "nonpayable",
+									"virtual": false,
+									"visibility": "external"
+								},
+								{
+									"functionSelector": "a808135b",
+									"id": 159,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "getBusesByCompanyID",
+									"nameLocation": "1071:19:1",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 153,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 152,
+												"mutability": "mutable",
+												"name": "companyID",
+												"nameLocation": "1099:9:1",
+												"nodeType": "VariableDeclaration",
+												"scope": 159,
+												"src": "1091:17:1",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 151,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "1091:7:1",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1090:19:1"
+									},
+									"returnParameters": {
+										"id": 158,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 157,
+												"mutability": "mutable",
+												"name": "",
+												"nameLocation": "-1:-1:-1",
+												"nodeType": "VariableDeclaration",
+												"scope": 159,
+												"src": "1133:24:1",
+												"stateVariable": false,
+												"storageLocation": "memory",
+												"typeDescriptions": {
+													"typeIdentifier": "t_array$_t_struct$_BusItem_$33_memory_ptr_$dyn_memory_ptr",
+													"typeString": "struct DataStr.BusItem[]"
+												},
+												"typeName": {
+													"baseType": {
+														"id": 155,
+														"nodeType": "UserDefinedTypeName",
+														"pathNode": {
+															"id": 154,
+															"name": "DataStr.BusItem",
+															"nameLocations": [
+																"1133:7:1",
+																"1141:7:1"
+															],
+															"nodeType": "IdentifierPath",
+															"referencedDeclaration": 33,
+															"src": "1133:15:1"
+														},
+														"referencedDeclaration": 33,
+														"src": "1133:15:1",
+														"typeDescriptions": {
+															"typeIdentifier": "t_struct$_BusItem_$33_storage_ptr",
+															"typeString": "struct DataStr.BusItem"
+														}
+													},
+													"id": 156,
+													"nodeType": "ArrayTypeName",
+													"src": "1133:17:1",
+													"typeDescriptions": {
+														"typeIdentifier": "t_array$_t_struct$_BusItem_$33_storage_$dyn_storage_ptr",
+														"typeString": "struct DataStr.BusItem[]"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1132:26:1"
+									},
+									"scope": 160,
+									"src": "1062:97:1",
+									"stateMutability": "view",
 									"virtual": false,
 									"visibility": "external"
 								}
 							],
-							"scope": 158,
-							"src": "101:972:1",
+							"scope": 161,
+							"src": "99:1067:1",
 							"usedErrors": [],
 							"usedEvents": []
 						}
 					],
-					"src": "39:1036:1"
+					"src": "37:1131:1"
 				},
 				"id": 1
 			}

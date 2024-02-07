@@ -45,6 +45,7 @@ contract Company {
     //    _;
     //}
     event GovernmentAddressUpdated(address newAddress);
+    event BusForwardedToCoordinator(uint256 indexed busId, address indexed by, address coordinatorAddress);
 
     function setGovernmentAddress(address _newAddress) public onlyGovernment {
         require(_newAddress != address(0), "New address cannot be zero.");
@@ -53,32 +54,49 @@ contract Company {
     }
 
     // Function to add a bus using the sharedStorage contract
-    function addBus(uint256 model, string calldata vim_number, string calldata company_name, string calldata plate_number) external onlyCompany {
-        sharedStorage.addBus(model, vim_number, company_name, plate_number, msg.sender);
+    function addBus(uint256 model, string calldata vim_number, uint256 company_ID, string calldata plate_number) external {
+        sharedStorage.addBus(model, vim_number, company_ID, plate_number, msg.sender);
     }
 
-    function ForeWardToCoordinatorContract(uint256 busId) external onlyCompany {
+    function forwardToCoordinatorContract(uint256 busId) external onlyCompany {
+        // Ensure the bus ID is valid and the bus exists in the sharedStorage.
+        require(busId > 0, "a message From Company Contract:  YOU Are LOOKING FOR a bus that does not exist!");
+
+        // Retrieve the bus data from sharedStorage to ensure it exists and check its status.
         DataStr.BusItem memory bus = sharedStorage.getBusData(busId);
-        require(bus.status != DataStr.BusStatus.Forward_To_Coordinator ||
-        bus.status != DataStr.BusStatus.Rejected, "Bus already forwarded to Coordinator");
         
+        // Check if the bus is already forwarded or rejected, to avoid redundant operations.
+        require(bus.status != DataStr.BusStatus.Forward_To_Coordinator, "Bus already forwarded to Coordinator.");
+        require(bus.status != DataStr.BusStatus.Rejected, "Bus is rejected and cannot be forwarded.");
+        
+        // Proceed to update the bus status and ownership since all checks passed.
         sharedStorage.updateBusStatus(busId, DataStr.BusStatus.Forward_To_Coordinator, "Transferred to Coordinator", msg.sender);
         sharedStorage.updateOwnership(busId, coordinatorAddress);
-}
+
+        //Optionally, emit an event here to log the successful forwarding operation.
+        emit BusForwardedToCoordinator(busId, msg.sender, coordinatorAddress);
+    }
+
 
     // Function to update the status of a bus
-    function updateBusStatus(uint256 id, DataStr.BusStatus newStatus, string calldata note) external onlyCompany {
-        sharedStorage.updateBusStatus(id, newStatus, note, msg.sender);
-    }
+    //function updateBusStatus(uint256 id, DataStr.BusStatus newStatus, string calldata note) external onlyCompany {
+    //    sharedStorage.updateBusStatus(id, newStatus, note, msg.sender);
+    //}
 
     // Function to update the ownership of a bus
-    function updateOwnership(uint256 id, address newOwner) external onlyCompany {
-        sharedStorage.updateOwnership(id, newOwner);
-    }
+    //function updateOwnership(uint256 id, address newOwner) external onlyCompany {
+    //    sharedStorage.updateOwnership(id, newOwner);
+    //}
 
     // Function to get the data of a specific bus by its ID
     function getBusData(uint256 id) external view onlyCompany returns (DataStr.BusItem memory) {
+        require(id > 0, "a message From Company Contract:  YOU Are LOOKING FOR a bus that does not exist!");
         return sharedStorage.getBusData(id);
+    }
+
+    function retrieveBusesByCompanyID(uint256 companyID) external view returns (DataStr.BusItem[] memory) {
+        require(companyID > 0, "a message From Company Contract:  YOU Are LOOKING FOR a Company that does not exist!");
+        return sharedStorage.getBusesByCompanyID(companyID);
     }
 
     // Additional functions for coordinator and government address management, and other logic as needed...

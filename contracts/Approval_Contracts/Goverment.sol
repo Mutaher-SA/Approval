@@ -1,4 +1,3 @@
-
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.2;
 
@@ -28,6 +27,8 @@ contract Government {
         require(addressManager.isGovernmentAddressAllowed(msg.sender), "Caller is not an authorized government entity.");
         _;
     }
+
+    event NftTokenIdUpdated(uint256 busId, uint256 nftTokenId);
 
     // Function to approve a bus and mint an NFT for it
      function approveBusAndMintNFT(uint256 busId, string memory nftTokenURI) public onlyGovernment returns (uint256) {

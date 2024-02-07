@@ -1,4 +1,3 @@
-
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.8.2 <0.9.0;
 
@@ -10,10 +9,11 @@ interface ICommonFunctions {
     function addBus(
         uint256 model, 
         string calldata vim_number,
-        string calldata company_name, 
+        uint256 company_ID, 
         string calldata plate_number,
         address creator
     ) external;
+
 
 
     // Function to update the status of a bus
@@ -36,7 +36,8 @@ interface ICommonFunctions {
     ) external view returns (DataStr.BusItem memory);
 
     function getBusStatus(uint256 busId) external view returns (DataStr.BusStatus);
-
     function updateNft(uint256 busId, uint256 nftTokenId) external;
+    function getBusesByCompanyID(uint256 companyID) external view returns (DataStr.BusItem[] memory);
+
 
 }

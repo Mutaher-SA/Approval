@@ -27,10 +27,10 @@
 						"type": "string"
 					},
 					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "company_name",
-						"type": "string"
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "company_ID",
+						"type": "uint256"
 					},
 					{
 						"indexed": false,
@@ -39,7 +39,7 @@
 						"type": "string"
 					},
 					{
-						"indexed": false,
+						"indexed": true,
 						"internalType": "enum DataStr.BusStatus",
 						"name": "status",
 						"type": "uint8"
@@ -138,7 +138,7 @@
 						"type": "uint256"
 					},
 					{
-						"indexed": false,
+						"indexed": true,
 						"internalType": "enum DataStr.BusStatus",
 						"name": "newStatus",
 						"type": "uint8"
@@ -157,25 +157,6 @@
 					}
 				],
 				"name": "BusStatusUpdated",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "busId",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "nftTokenId",
-						"type": "uint256"
-					}
-				],
-				"name": "NftTokenIdUpdated",
 				"type": "event"
 			},
 			{
@@ -226,11 +207,11 @@
 	},
 	"sources": {
 		"contracts/Approval_Contracts/DataStr.sol": {
-			"keccak256": "0x31ed98a01b251bb050725006be1dfa7f8acbb9d0422f553b4f8cbfe81a7b65b5",
+			"keccak256": "0x559af1f694992bd1d87b32c61df2650f2b3832763da5856491b17e854dab340d",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://f73a7c3558cb7e8d570b28397e7e755c43ea3741ca4280ca99cc4a484279e149",
-				"dweb:/ipfs/Qmar2HujipZjzpepZJBPFbXtJDcQoncfqF13xdDL5FP3L8"
+				"bzz-raw://55e21e0540001409c9399c77a034b2e8709ef030dacca1c418cb5e3159bc24c8",
+				"dweb:/ipfs/QmRrunyMFuJJTo9v777xUt3ejYcf7WzLvT967bCPqpM618"
 			]
 		}
 	},
