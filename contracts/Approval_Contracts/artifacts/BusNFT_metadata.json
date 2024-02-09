@@ -838,11 +838,11 @@
 			]
 		},
 		"contracts/Approval_Contracts/BusNFT.sol": {
-			"keccak256": "0xec1558d4e80770f1745be657c17633bc68f5e642d132302f6317f7d98e6a5cc4",
+			"keccak256": "0x7ce8e7466157334c6e7723631ee8e27e5fd5bfdc06131c4ce4405d63c9b37d82",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://4a8bf8d7d380f7061d279a0f8488826e26b050e9883014605e432f83ecb2ba34",
-				"dweb:/ipfs/QmecSdgVm8V8EK2DwrwbR9gHVx39ZErWiUVmE63kU1PXDS"
+				"bzz-raw://c89d4a21dff16be4a8887f8c99eb7f73e613a34776e766a8bd0e998ee074fb4b",
+				"dweb:/ipfs/QmX1dwcEbWLzRvy2NPruTyzgrmDeTFog4GoWh7vXFpHjGc"
 			]
 		}
 	},

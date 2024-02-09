@@ -11,9 +11,9 @@ interface ICommonFunctions {
         string calldata vim_number,
         uint256 company_ID, 
         string calldata plate_number,
-        address creator
+        address creator,
+        address companyContractAddress // Newly added parameter
     ) external;
-
 
 
     // Function to update the status of a bus
@@ -37,7 +37,10 @@ interface ICommonFunctions {
 
     function getBusStatus(uint256 busId) external view returns (DataStr.BusStatus);
     function updateNft(uint256 busId, uint256 nftTokenId) external;
-    function getBusesByCompanyID(uint256 companyID) external view returns (DataStr.BusItem[] memory);
+    function getTotalNumberOfBuses() external view returns (uint256);
+
+    function getBusesByCompany(address companyAddress) external view returns (DataStr.BusItem[] memory);
+    function  getBuses_Company_Status(address companyAddress, DataStr.BusStatus status) external view returns (DataStr.BusItem[] memory);
 
 
 }

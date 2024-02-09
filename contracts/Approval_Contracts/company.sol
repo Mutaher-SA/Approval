@@ -13,9 +13,7 @@ contract Company {
     address public coordinatorAddress;
     address public governmentAddress;
 
-    // Constructor sets the addresses for sharedStorage, AddressManager, Coordinator, and Government
-    //constructor(address _sharedStorageAddress, address _addressManagerAddress, address _coordinatorAddress, address _governmentAddress) {
-    constructor(address _sharedStorageAddress, address _addressManagerAddress, address _coordinatorAddress) {
+     constructor(address _sharedStorageAddress, address _addressManagerAddress, address _coordinatorAddress) {
         require(_sharedStorageAddress != address(0), "sharedStorage address cannot be zero.");
         require(_addressManagerAddress != address(0), "AddressManager address cannot be zero.");
         require(_coordinatorAddress != address(0), "Coordinator address cannot be zero.");
@@ -39,11 +37,6 @@ contract Company {
         _;
     }
 
-    // Modifier to restrict function access to the coordinator role
-    //modifier onlyCoordinator() {
-    //    require(msg.sender == coordinatorAddress, "Caller is not allowed: Coordinator only.");
-    //    _;
-    //}
     event GovernmentAddressUpdated(address newAddress);
     event BusForwardedToCoordinator(uint256 indexed busId, address indexed by, address coordinatorAddress);
 
@@ -54,8 +47,14 @@ contract Company {
     }
 
     // Function to add a bus using the sharedStorage contract
-    function addBus(uint256 model, string calldata vim_number, uint256 company_ID, string calldata plate_number) external {
-        sharedStorage.addBus(model, vim_number, company_ID, plate_number, msg.sender);
+    function addBus(
+        uint256 model, 
+        string calldata vim_number, 
+        uint256 company_ID, 
+        string calldata plate_number
+    ) external {
+        // Assume 'address(this)' is intended as the companyContractAddress
+        sharedStorage.addBus(model, vim_number, company_ID, plate_number, msg.sender, address(this));
     }
 
     function forwardToCoordinatorContract(uint256 busId) external onlyCompany {
@@ -77,27 +76,26 @@ contract Company {
         emit BusForwardedToCoordinator(busId, msg.sender, coordinatorAddress);
     }
 
-
-    // Function to update the status of a bus
-    //function updateBusStatus(uint256 id, DataStr.BusStatus newStatus, string calldata note) external onlyCompany {
-    //    sharedStorage.updateBusStatus(id, newStatus, note, msg.sender);
-    //}
-
-    // Function to update the ownership of a bus
-    //function updateOwnership(uint256 id, address newOwner) external onlyCompany {
-    //    sharedStorage.updateOwnership(id, newOwner);
-    //}
-
-    // Function to get the data of a specific bus by its ID
+   
     function getBusData(uint256 id) external view onlyCompany returns (DataStr.BusItem memory) {
         require(id > 0, "a message From Company Contract:  YOU Are LOOKING FOR a bus that does not exist!");
         return sharedStorage.getBusData(id);
     }
 
-    function retrieveBusesByCompanyID(uint256 companyID) external view returns (DataStr.BusItem[] memory) {
-        require(companyID > 0, "a message From Company Contract:  YOU Are LOOKING FOR a Company that does not exist!");
-        return sharedStorage.getBusesByCompanyID(companyID);
+    function getMyCompanyBuses() external view returns (DataStr.BusItem[] memory) {
+        require(address(sharedStorage) != address(0), "a message From Company Contract: SharedStorage contract is not set.");
+        return sharedStorage.getBusesByCompany(msg.sender);
     }
 
-    // Additional functions for coordinator and government address management, and other logic as needed...
+
+        // This function replaces getNotedBuses with a more generic approach
+    function getBusesByStatus(DataStr.BusStatus status) external view returns (DataStr.BusItem[] memory) {
+        // Directly use sharedStorage's functionality to get buses by company (msg.sender) and status
+        return sharedStorage.getBuses_Company_Status(msg.sender, status);
+    }
+   
+    function getBusesByCompany(address companyAddress) external view returns (DataStr.BusItem[] memory) {
+        return sharedStorage.getBusesByCompany(companyAddress);
+    }
+
 }

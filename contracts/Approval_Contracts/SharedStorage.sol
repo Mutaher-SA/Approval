@@ -26,7 +26,7 @@ contract sharedStorage is ICommonFunctions {
 
     // Modifier to check if bus exists
     modifier busExists(uint256 busId) {
-        require(buses[busId].id >= 0, "THE YOU Are LOOKING FOR does not exist!!!!");
+        require(buses[busId].id > 0, "THE YOU Are LOOKING FOR does not exist!!!!");
         _;
     }
 
@@ -45,47 +45,48 @@ contract sharedStorage is ICommonFunctions {
     }
 
     // Function to add a new bus
+    
+    // Assuming the existence of DataStr.BusItem, _nextBusId, and other necessary parts
+
     function addBus(
         uint256 model, 
-        string calldata vim_number, 
+        string calldata vim_number,
         uint256 company_ID, 
-        string calldata plate_number, 
-        address creator
-        ) external override {
-            
+        string calldata plate_number,
+        address creator,
+        address companyContractAddress
+    ) external override {
         buses[_nextBusId.current()] = DataStr.BusItem({
             id: _nextBusId.current(),
             model: model,
             vim_number: vim_number,
             company_ID: company_ID,
             plate_number: plate_number,
-            // expireYear: expireYear, // Removed this line
             status: DataStr.BusStatus.New_Bus,
             rejectNote: "",
             rejectBy: address(0),
-            owner: creator,
+            owner: companyContractAddress, // Use the provided address as the owner
             creator: creator,
             nftTokenId: 0
         });
-    
-        
+
         emit DataStr.BusCreated(
             _nextBusId.current(),
             model,
             vim_number,
             company_ID,
             plate_number,
-            // expireYear, // Removed this parameter
             DataStr.BusStatus.New_Bus,
             "",
             address(0),
-            creator,
+            companyContractAddress, // Reflecting the change here too
             creator,
             0
         );
         _nextBusId.increment();
+        }
     
-    }
+
 
      // Function to get the current status of a bus by its ID
     function getBusStatus(uint256 busId) external view override returns (DataStr.BusStatus) {
@@ -124,30 +125,59 @@ contract sharedStorage is ICommonFunctions {
         emit NftTokenIdUpdated(busId, nftTokenId); // Emit an event for the update
     }
 
-    function getBusesByCompanyID(uint256 companyID) external view returns (DataStr.BusItem[] memory) {
-        uint256 totalBusCount = _nextBusId.current() - 1; // Assuming _nextBusId is incremented after adding a bus
-        uint256 matchingBusCount = 0;
+    function getBusesByCompany(address companyAddress) external view override returns (DataStr.BusItem[] memory) {
+        uint256 totalBuses = _nextBusId.current();
+        uint256 count = 0;
 
-        // First pass: count the matching buses to allocate memory for the array
-        for (uint256 i = 1; i <= totalBusCount; i++) {
-            if (buses[i].company_ID == companyID) {
-                matchingBusCount++;
+        // First pass: count the buses
+        for (uint256 i = 1; i < totalBuses; i++) {
+            if (buses[i].creator == companyAddress) {
+                count++;
+            }
+    }
+
+        // Second pass: populate the array
+        DataStr.BusItem[] memory companyBuses = new DataStr.BusItem[](count);
+        uint256 index = 0;
+        for (uint256 i = 1; i < totalBuses; i++) {
+            if (buses[i].creator == companyAddress) {
+                companyBuses[index] = buses[i];
+                index++;
             }
         }
 
-        // Allocate array with matching size
-        DataStr.BusItem[] memory matchingBuses = new DataStr.BusItem[](matchingBusCount);
-        uint256 arrayIndex = 0;
+        return companyBuses;
+    }
 
-        // Second pass: populate the array with matching buses
-        for (uint256 i = 1; i <= totalBusCount; i++) {
-            if (buses[i].company_ID == companyID) {
-                matchingBuses[arrayIndex] = buses[i];
-                arrayIndex++;
+    function getBuses_Company_Status(address companyAddress, DataStr.BusStatus status) external view override returns (DataStr.BusItem[] memory) {
+        uint256 totalBuses = _nextBusId.current();
+        uint256 count = 0;
+
+        // First pass: count the buses that match the company address and status
+        for (uint256 i = 1; i < totalBuses; i++) {
+            if (buses[i].creator == companyAddress && buses[i].status == status) {
+                count++;
             }
         }
 
-        return matchingBuses;
+        // Allocate memory for the array based on the count
+        DataStr.BusItem[] memory filteredBuses = new DataStr.BusItem[](count);
+        uint256 index = 0;
+
+        // Second pass: populate the array with buses that match the criteria
+        for (uint256 i = 1; i < totalBuses; i++) {
+            if (buses[i].creator == companyAddress && buses[i].status == status) {
+                filteredBuses[index] = buses[i];
+                index++;
+            }
+        }
+
+        return filteredBuses;
+    }
+
+    function getTotalNumberOfBuses() public view override returns (uint256) {
+        require(_nextBusId.current()>0,"a message from Storage contract: Counter in not started yet!");
+        return _nextBusId.current() - 1;
     }
 
 }

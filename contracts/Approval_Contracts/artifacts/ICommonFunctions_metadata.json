@@ -31,6 +31,11 @@
 						"internalType": "address",
 						"name": "creator",
 						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "companyContractAddress",
+						"type": "address"
 					}
 				],
 				"name": "addBus",
@@ -136,12 +141,12 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "companyID",
-						"type": "uint256"
+						"internalType": "address",
+						"name": "companyAddress",
+						"type": "address"
 					}
 				],
-				"name": "getBusesByCompanyID",
+				"name": "getBusesByCompany",
 				"outputs": [
 					{
 						"components": [
@@ -204,6 +209,100 @@
 						"internalType": "struct DataStr.BusItem[]",
 						"name": "",
 						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "companyAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "enum DataStr.BusStatus",
+						"name": "status",
+						"type": "uint8"
+					}
+				],
+				"name": "getBuses_Company_Status",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "model",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "vim_number",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "company_ID",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "plate_number",
+								"type": "string"
+							},
+							{
+								"internalType": "enum DataStr.BusStatus",
+								"name": "status",
+								"type": "uint8"
+							},
+							{
+								"internalType": "string",
+								"name": "rejectNote",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "rejectBy",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "owner",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "nftTokenId",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct DataStr.BusItem[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTotalNumberOfBuses",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -310,11 +409,11 @@
 			]
 		},
 		"contracts/Approval_Contracts/ICommonFunctions.sol": {
-			"keccak256": "0x0b2decc3392f4989c0c1287f931f09c389e833fdc43f70530847d383e86c0563",
+			"keccak256": "0x716e53a7dea8f0b0b63c29a27cad24be985f89998424e0d72e891b793797ef06",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://4237aaf4210da18cb7bc90726164fbaa2d9ef3d9aed904daf5c70acbc3d80c13",
-				"dweb:/ipfs/QmPoiFX91cJ1FrYUrjC45LQwwYCEyKZ9gEaANt8jqEhB5o"
+				"bzz-raw://88af90777f263f9f5c538af7bf58ddaa88d9589e04ece41ab706dcaac3e52b66",
+				"dweb:/ipfs/QmPRyMQbcHd1qgHF1H4zJ3AE7wa5UhFqMt5irLoLFPrCsw"
 			]
 		}
 	},
