@@ -218,6 +218,82 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "entityAddress",
+						"type": "address"
+					}
+				],
+				"name": "getBusesOwnedBy",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "model",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "vim_number",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "company_ID",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "plate_number",
+								"type": "string"
+							},
+							{
+								"internalType": "enum DataStr.BusStatus",
+								"name": "status",
+								"type": "uint8"
+							},
+							{
+								"internalType": "string",
+								"name": "rejectNote",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "rejectBy",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "owner",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "nftTokenId",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct DataStr.BusItem[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "companyAddress",
 						"type": "address"
 					},
@@ -409,11 +485,11 @@
 			]
 		},
 		"contracts/Approval_Contracts/ICommonFunctions.sol": {
-			"keccak256": "0x716e53a7dea8f0b0b63c29a27cad24be985f89998424e0d72e891b793797ef06",
+			"keccak256": "0x60c1777f5f714f9a4278c6f4fb354e2ef6d0cfaa1a1c563b51e758f73c68b761",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://88af90777f263f9f5c538af7bf58ddaa88d9589e04ece41ab706dcaac3e52b66",
-				"dweb:/ipfs/QmPRyMQbcHd1qgHF1H4zJ3AE7wa5UhFqMt5irLoLFPrCsw"
+				"bzz-raw://b74cc6e77f56593f14d6cdefe477dd2fc032bcf1e71628ad1e80bd165e0442db",
+				"dweb:/ipfs/QmRroEGoPYhwZHx4XvAvKu83BpAmckF4AK1D9AXYdpHo2T"
 			]
 		}
 	},

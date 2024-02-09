@@ -40,24 +40,18 @@ contract Company {
     event GovernmentAddressUpdated(address newAddress);
     event BusForwardedToCoordinator(uint256 indexed busId, address indexed by, address coordinatorAddress);
 
-    function setGovernmentAddress(address _newAddress) public onlyGovernment {
+    function setGovernmentAddress(address _newAddress) external onlyGovernment {
         require(_newAddress != address(0), "New address cannot be zero.");
         governmentAddress = _newAddress;
         emit GovernmentAddressUpdated(_newAddress);
     }
 
     // Function to add a bus using the sharedStorage contract
-    function addBus(
-        uint256 model, 
-        string calldata vim_number, 
-        uint256 company_ID, 
-        string calldata plate_number
-    ) external {
-        // Assume 'address(this)' is intended as the companyContractAddress
+    function addBus(uint256 model, string calldata vim_number, uint256 company_ID, string calldata plate_number) onlyCompany external  {
         sharedStorage.addBus(model, vim_number, company_ID, plate_number, msg.sender, address(this));
     }
 
-    function forwardToCoordinatorContract(uint256 busId) external onlyCompany {
+    function forwardToCoordinatorContract(uint256 busId) onlyCompany external {
         // Ensure the bus ID is valid and the bus exists in the sharedStorage.
         require(busId > 0, "a message From Company Contract:  YOU Are LOOKING FOR a bus that does not exist!");
 
@@ -72,7 +66,7 @@ contract Company {
         sharedStorage.updateBusStatus(busId, DataStr.BusStatus.Forward_To_Coordinator, "Transferred to Coordinator", msg.sender);
         sharedStorage.updateOwnership(busId, coordinatorAddress);
 
-        //Optionally, emit an event here to log the successful forwarding operation.
+        //emit an event here to log the successful forwarding operation.
         emit BusForwardedToCoordinator(busId, msg.sender, coordinatorAddress);
     }
 

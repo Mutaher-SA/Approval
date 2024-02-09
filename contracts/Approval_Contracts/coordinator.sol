@@ -34,7 +34,7 @@ contract Coordinator {
         return sharedStorage.getBusData(busId);
     }
     
-    function getBusesByCompany(address companyAddress) external view returns (DataStr.BusItem[] memory) {
+    function getBusesByCompany(address companyAddress) public view returns (DataStr.BusItem[] memory) {
         return sharedStorage.getBusesByCompany(companyAddress);
     }
 
@@ -43,19 +43,26 @@ contract Coordinator {
 
         sharedStorage.updateBusStatus(busId, DataStr.BusStatus.Forward_To_Goverment, "Transferred to Goverment", msg.sender);
         sharedStorage.updateOwnership(busId, governmentAddress);
+
+        emit DataStr.OwnershipUpdated(busId,governmentAddress );
     }
 
-    function rejectBus(uint256 busId, string memory note) public onlyCoordinator {
+    function rejectBus(uint256 busId, string memory note) external onlyCoordinator {
+        require(busId > 0, "a message From Coordinator Contract:  YOU Are LOOKING FOR a bus that does not exist!");
+        
         DataStr.BusItem memory bus = getBusData(busId);
         require(bus.status == DataStr.BusStatus.Forward_To_Coordinator || 
                 bus.status == DataStr.BusStatus.New_Bus
                 , "Bus cannot be Noted in its current state.");
-        sharedStorage.updateBusStatus(busId, DataStr.BusStatus.Rejected, note, msg.sender);
+        sharedStorage.updateBusStatus(busId, DataStr.BusStatus.Rejected, note, address(this));
         sharedStorage.updateOwnership(busId, CompanyAddress);
         emit BusRejected(busId, note, msg.sender);
+        emit DataStr.BusRejected(busId, note, address(this));
     }
 
-    function noteBus(uint256 busId, string memory note) public onlyCoordinator {
+    function noteBus(uint256 busId, string memory note) external onlyCoordinator {
+        require(busId > 0, "a message From Coordinator Contract:  YOU Are LOOKING FOR a bus that does not exist!");
+        
         DataStr.BusItem memory bus = getBusData(busId);
         require(bus.status == DataStr.BusStatus.Forward_To_Coordinator || 
                 bus.status == DataStr.BusStatus.New_Bus
@@ -63,31 +70,12 @@ contract Coordinator {
         sharedStorage.updateBusStatus(busId, DataStr.BusStatus.Noted, note, msg.sender);
         sharedStorage.updateOwnership(busId, CompanyAddress);
         emit BusNoted(busId, note, msg.sender);
+        emit DataStr.BusNoted(busId, note, address(this));
     }
 
-    function getBusesOwnedByCoordinator() external view returns (DataStr.BusItem[] memory) {
-        uint256 totalBuses = sharedStorage.getTotalNumberOfBuses(); 
-        // Temporary array to hold all buses (max possible size to start)
-        DataStr.BusItem[] memory tempArray = new DataStr.BusItem[](totalBuses);
-        uint256 count = 0;
-
-        // Iterate through all buses, checking ownership
-        for (uint256 i = 1; i <= totalBuses; i++) {
-            DataStr.BusItem memory bus = sharedStorage.getBusData(i);
-            if (bus.owner == address(this)) { // Check if the bus is owned by this contract
-                tempArray[count] = bus;
-                count++;
-            }
-        }
-
-        // Create a fitted array for the result
-        DataStr.BusItem[] memory busesOwnedByCoordinator = new DataStr.BusItem[](count);
-        for (uint256 i = 0; i < count; i++) {
-            busesOwnedByCoordinator[i] = tempArray[i];
-        }
-
-    return busesOwnedByCoordinator;
-}
+    function getBusesOwnedByCoordinator() public view returns (DataStr.BusItem[] memory) {
+        return sharedStorage.getBusesOwnedBy(address(this));
+    }
 
     function setCompanyContractAddress(address _newCompanyContractAddress) external onlyCoordinator {
         require(_newCompanyContractAddress != address(0), "New company contract address cannot be zero.");

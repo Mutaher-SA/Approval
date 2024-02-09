@@ -41,6 +41,8 @@ interface ICommonFunctions {
 
     function getBusesByCompany(address companyAddress) external view returns (DataStr.BusItem[] memory);
     function  getBuses_Company_Status(address companyAddress, DataStr.BusStatus status) external view returns (DataStr.BusItem[] memory);
+    function getBusesOwnedBy(address entityAddress) external view returns (DataStr.BusItem[] memory);
+
 
 
 }

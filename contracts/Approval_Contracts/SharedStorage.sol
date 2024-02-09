@@ -180,4 +180,26 @@ contract sharedStorage is ICommonFunctions {
         return _nextBusId.current() - 1;
     }
 
+    function getBusesOwnedBy(address entityAddress) external view returns (DataStr.BusItem[] memory) {
+        uint256 totalBuses = _nextBusId.current(); // Assuming this is how you track the total number of buses
+        DataStr.BusItem[] memory tempArray = new DataStr.BusItem[](totalBuses);
+        uint256 count = 0;
+
+        for (uint256 i = 1; i < totalBuses; i++) {
+            DataStr.BusItem memory bus = this.getBusData(i); // Assuming getBusData returns bus info
+            if (bus.owner == entityAddress) {
+                tempArray[count] = bus;
+                count++;
+            }
+        }
+
+        DataStr.BusItem[] memory busesOwned = new DataStr.BusItem[](count);
+        for (uint256 i = 0; i < count; i++) {
+            busesOwned[i] = tempArray[i];
+        }
+
+        return busesOwned;
+    }
+
+
 }

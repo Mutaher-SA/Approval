@@ -9,17 +9,135 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_companyContractAddress",
+						"name": "_sharedStorageAddress",
 						"type": "address"
 					},
 					{
 						"internalType": "address",
 						"name": "_addressManagerAddress",
 						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_governmentAddress",
+						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					}
+				],
+				"name": "BusForwardedToGovernment",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "notedBy",
+						"type": "address"
+					}
+				],
+				"name": "BusNoted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "updatedBy",
+						"type": "address"
+					}
+				],
+				"name": "BusNoted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "reason",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "rejectedBy",
+						"type": "address"
+					}
+				],
+				"name": "BusRejected",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "busId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "note",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "updatedBy",
+						"type": "address"
+					}
+				],
+				"name": "BusRejected",
+				"type": "event"
 			},
 			{
 				"anonymous": false,
@@ -31,26 +149,27 @@
 						"type": "uint256"
 					},
 					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "status",
-						"type": "string"
-					},
-					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "updatedBy",
+						"name": "newOwner",
 						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "note",
-						"type": "string"
 					}
 				],
-				"name": "BusStatusChanged",
+				"name": "OwnershipUpdated",
 				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "CompanyAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			},
 			{
 				"inputs": [],
@@ -69,72 +188,11 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "busNotes",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "companyContract",
-				"outputs": [
-					{
-						"internalType": "contract ICommonFunctions",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "coordinatorBusItems",
-				"outputs": [
-					{
-						"internalType": "enum ICommonFunctions.BusStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "string",
-						"name": "note",
-						"type": "string"
-					},
-					{
-						"internalType": "address",
-						"name": "updatedBy",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
 						"name": "busId",
 						"type": "uint256"
 					}
 				],
-				"name": "forwardBusToGovernment",
+				"name": "forwardToGoverment",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -168,7 +226,7 @@
 							},
 							{
 								"internalType": "uint256",
-								"name": "company_number",
+								"name": "company_ID",
 								"type": "uint256"
 							},
 							{
@@ -177,12 +235,7 @@
 								"type": "string"
 							},
 							{
-								"internalType": "uint256",
-								"name": "expireYear",
-								"type": "uint256"
-							},
-							{
-								"internalType": "enum ICommonFunctions.BusStatus",
+								"internalType": "enum DataStr.BusStatus",
 								"name": "status",
 								"type": "uint8"
 							},
@@ -212,7 +265,7 @@
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct ICommonFunctions.BusItem",
+						"internalType": "struct DataStr.BusItem",
 						"name": "",
 						"type": "tuple"
 					}
@@ -223,12 +276,12 @@
 			{
 				"inputs": [
 					{
-						"internalType": "enum ICommonFunctions.BusStatus",
-						"name": "status",
-						"type": "uint8"
+						"internalType": "address",
+						"name": "companyAddress",
+						"type": "address"
 					}
 				],
-				"name": "getBusesByStatus",
+				"name": "getBusesByCompany",
 				"outputs": [
 					{
 						"components": [
@@ -249,7 +302,7 @@
 							},
 							{
 								"internalType": "uint256",
-								"name": "company_number",
+								"name": "company_ID",
 								"type": "uint256"
 							},
 							{
@@ -258,12 +311,7 @@
 								"type": "string"
 							},
 							{
-								"internalType": "uint256",
-								"name": "expireYear",
-								"type": "uint256"
-							},
-							{
-								"internalType": "enum ICommonFunctions.BusStatus",
+								"internalType": "enum DataStr.BusStatus",
 								"name": "status",
 								"type": "uint8"
 							},
@@ -293,9 +341,92 @@
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct ICommonFunctions.BusItem[]",
+						"internalType": "struct DataStr.BusItem[]",
 						"name": "",
 						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getBusesOwnedByCoordinator",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "model",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "vim_number",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "company_ID",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "plate_number",
+								"type": "string"
+							},
+							{
+								"internalType": "enum DataStr.BusStatus",
+								"name": "status",
+								"type": "uint8"
+							},
+							{
+								"internalType": "string",
+								"name": "rejectNote",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "rejectBy",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "owner",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "nftTokenId",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct DataStr.BusItem[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "governmentAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -349,6 +480,32 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_newSharedStorageAddress",
+						"type": "address"
+					}
+				],
+				"name": "setSharedStorageAddress",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "sharedStorage",
+				"outputs": [
+					{
+						"internalType": "contract ICommonFunctions",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -379,27 +536,35 @@
 	},
 	"sources": {
 		"contracts/Approval_Contracts/AddressManager.sol": {
-			"keccak256": "0x398b6dbb5bd58ee0396112ca88d5a6391cc90c326bd80eea33a39219e3c6674b",
+			"keccak256": "0x7ce6ec36b024c9452b8ca12b731cde6403cbd6460ae0f6f0d048ac3b4849999e",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://49c8470ded39cf3225b6a8bfc9112d4e4aac95a73bf87567bfa0bca3b8305450",
-				"dweb:/ipfs/QmV9e4w74EkzZCyiycT5g4pAEpunz6qEL6KXLnEeFt257C"
+				"bzz-raw://43987dbf9f59a5b574d019d458824bbb1a1a3e976c78d278b8e5656bb4bf849f",
+				"dweb:/ipfs/QmbwAuBByFH71z3im88bD8HxHYtRiMEUKU1MC4P2qqPVbD"
+			]
+		},
+		"contracts/Approval_Contracts/DataStr.sol": {
+			"keccak256": "0x559af1f694992bd1d87b32c61df2650f2b3832763da5856491b17e854dab340d",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://55e21e0540001409c9399c77a034b2e8709ef030dacca1c418cb5e3159bc24c8",
+				"dweb:/ipfs/QmRrunyMFuJJTo9v777xUt3ejYcf7WzLvT967bCPqpM618"
 			]
 		},
 		"contracts/Approval_Contracts/ICommonFunctions.sol": {
-			"keccak256": "0xc4d9a6570c378796192c10fcb9f8bc905be459534e7878068aa2248ebf96db6e",
+			"keccak256": "0x60c1777f5f714f9a4278c6f4fb354e2ef6d0cfaa1a1c563b51e758f73c68b761",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://8037deb46bdb6b979e63a1a043d183e1f325a4a702de842c11116118d3d53489",
-				"dweb:/ipfs/QmSDa2Mh6mhnyU5FYeroBDTc9Xnmue6HrJU52PyisnbbH3"
+				"bzz-raw://b74cc6e77f56593f14d6cdefe477dd2fc032bcf1e71628ad1e80bd165e0442db",
+				"dweb:/ipfs/QmRroEGoPYhwZHx4XvAvKu83BpAmckF4AK1D9AXYdpHo2T"
 			]
 		},
 		"contracts/Approval_Contracts/coordinator.sol": {
-			"keccak256": "0x9b5911c3817a29cfa15350a57e62228206a22d1f53384798d0fe3f6185f387c9",
+			"keccak256": "0x6ff1ea5b4ef0e2f30a5bfb2e931845e2b545160fa9bbb6f1c29ce71d2b39244d",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://50338d6ebb5788dd060fd66d20b009e74d916cf60c0a6232df98667baef14668",
-				"dweb:/ipfs/QmQBGMdqfx81MvyMzZctvgy5tpt2FxnMVzuPJYpf6ffQEt"
+				"bzz-raw://824e77607d56a882e7d5b9572d43ee50cd58b30a27a747f340af756c43bb5194",
+				"dweb:/ipfs/QmNy83k2hZ5GU6JqjV9iBEotvCeEnXTFjr836x8acUfPps"
 			]
 		}
 	},
